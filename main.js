@@ -27,6 +27,20 @@ app.get('/works', function(request, response){
     response.render('works.hbs', model)
 
 })
+
+app.get("/works/:id", function(request, response){
+
+    const id = request.params.id
+
+    const work = data.works.find[work => work.id == id]
+
+    const model = {
+        work: work, 
+    }
+
+    response.render('work.hbs', model)
+
+})
  
  
 app.listen(8080)

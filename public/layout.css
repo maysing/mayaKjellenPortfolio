@@ -1,3 +1,15 @@
 body {
-    background-color: bisque;
+    background-color: rgb(226, 250, 253);
+}
+
+header {
+    background-color: pink;
+    height: 80px;
+   }
+
+#logo {
+    padding-left: 30px;
+    padding-top: 13px;
+    font-size: 45;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
