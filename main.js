@@ -13,9 +13,17 @@ app.use(
     express.static('public')
 )
 
+app.use(
+    express.static('node_modules/spectre.css/dist')
+)
+
 
 app.get('/', function(request, response){
      response.render('start.hbs')
+})
+
+app.get('/admin', function(request, response){
+    response.render('admin.hbs')
 })
 
 app.get('/works', function(request, response){
