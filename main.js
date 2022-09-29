@@ -1,6 +1,7 @@
 const express = require('express')
 const expressHandlebars = require('express-handlebars')
 const data = require('./data.js')
+
  
 const app = express()
  
@@ -14,7 +15,9 @@ app.use(
 )
 
 app.use(
-    express.static('node_modules/spectre.css/dist')
+	express.urlencoded({
+		extended: false
+	})
 )
 
 
@@ -25,6 +28,27 @@ app.get('/', function(request, response){
 app.get('/admin', function(request, response){
     response.render('admin.hbs')
 })
+
+app.post('/admin', function(request, response){
+    
+    const title = request.body.title
+    const link = request.body.link
+    const course = request.body.course
+    const year = request.body.year
+
+    data.works.push({
+        id: data.works.at(-1).id +1,
+        title: title, 
+        link: link, 
+        course: course, 
+        year: year
+
+    })
+
+    response.redirect('/works')
+
+})
+
 
 app.get('/works', function(request, response){
 
@@ -48,6 +72,10 @@ app.get("/works/:id", function(request, response){
 
     response.render('work.hbs', model)
 
+})
+
+app.get('/login', function(request, response){
+    response.render('login.hbs')
 })
  
  

@@ -4,7 +4,7 @@
 }
 
 body {
-    background-color: rgb(232, 227, 232);
+    background-color: rgb(74, 12, 74);
 }
 
 header {
@@ -20,6 +20,56 @@ h2 {
 
 .navbar-section {
     padding-top: 10px;
-    padding-left: 150px;
+    padding-left: 600px;
 }
 
+form {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100px;
+    padding-left: 760px;
+}
+
+h1 {
+    display: flex;
+    justify-content: center;
+    padding-top: 40px;
+}
+
+#postButton {
+    margin-top: 20px;
+}
+
+
+footer {
+   background-color: rgb(54, 73, 98);
+   height: 500px;
+   margin-top: 90px;
+}
+
+#footerText {
+    width: 150px;
+    color: rgb(180, 217, 249);
+    margin-left: 100px;
+    padding-top: 40px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+h3 {
+    display: flex;
+    justify-content: center;
+}
+
+p {
+    display: flex;
+    justify-content: center;
+}
+
+#worksList {
+    margin-left: 650px;
+}
+
+#adminFunctions {
+    margin-left: 150px;
+}
