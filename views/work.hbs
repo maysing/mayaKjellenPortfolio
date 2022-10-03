@@ -4,6 +4,10 @@
     <p> {{work.course}}</p>
     <p> {{work.year}}</p>
     
+    <form action="/delete-work/{{work.id}}" method="POST">
+        <input type="submit" value="DELETE">
+    </form>
+
 {{else}}
 	<p>That work do not exist.</p>
 {{/if}}
