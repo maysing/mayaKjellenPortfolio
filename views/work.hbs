@@ -1,4 +1,10 @@
-<h1>Work {{work.title}} </h1>
-<p>Description of the work<p>
-
+<h1>{{work.title}}</h1>
+{{#if work}}
+	<p> {{work.link}}</p>
+    <p> {{work.course}}</p>
+    <p> {{work.year}}</p>
     
+{{else}}
+	<p>That work do not exist.</p>
+{{/if}}
+

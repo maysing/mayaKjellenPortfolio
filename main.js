@@ -1,6 +1,8 @@
 const express = require('express')
 const expressHandlebars = require('express-handlebars')
 const data = require('./data.js')
+const sqLite3 = require ('sqLite3')
+const db = new sqLite3.Database("mayaKjellenPortfolioDb.db")
 
  
 const app = express()
@@ -61,22 +63,22 @@ app.get('/works', function(request, response){
 })
 
 app.get("/works/:id", function(request, response){
-
-    const id = request.params.id
-
-    const work = data.works.find[work => work.id == id]
-
-    const model = {
-        work: work, 
-    }
-
-    response.render('work.hbs', model)
-
+	
+	const id = request.params.id
+	
+	const work = data.works.find(m => m.id == id)
+	
+	const model = {
+		work: work,
+	}
+	
+	response.render('work.hbs', model)
+	
 })
 
 app.get('/login', function(request, response){
     response.render('login.hbs')
 })
- 
+
  
 app.listen(8080)
