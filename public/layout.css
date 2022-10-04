@@ -39,6 +39,12 @@ h1 {
 
 #postButton {
     margin-top: 20px;
+    padding-right: 7px;
+    padding-left: 7px;
+    padding-bottom: 2px;
+    background-color: rgb(217, 236, 255);
+    border-radius: 8px;
+    border: none;
 }
 
 
@@ -72,4 +78,28 @@ p {
 
 #adminFunctions {
     margin-left: 150px;
+}
+
+#username {
+    margin-bottom: 20px;
+}
+
+#loginButton {
+    margin-top: 20px;
+    padding-right: 7px;
+    padding-left: 7px;
+    padding-bottom: 2px;
+    background-color: rgb(217, 236, 255);
+    border-radius: 8px;
+    border: none;
+}
+
+#errorDisplay {
+    margin-left: 650px;
+    font-style: italic;
+    color: red;
+}
+
+#contactLinks {
+    margin-left: 670px;
 }

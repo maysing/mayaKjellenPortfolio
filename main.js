@@ -1,6 +1,6 @@
 const express = require('express')
 const expressHandlebars = require('express-handlebars')
-const data = require('./data.js')
+const bodyParser = require('body-parser')
 const sqLite3 = require ('sqLite3')
 const db = new sqLite3.Database("mayaKjellenPortfolioDb.db")
 
@@ -14,6 +14,12 @@ db.run(`
         year INTEGER
     )
 `)
+
+const fieldEmpty = 0
+
+
+const adminUsername = "maysing"
+const adminPassword = "password1"
 
 const app = express()
 
@@ -34,8 +40,17 @@ app.use(
 )
 
 
-app.get('/', function(request, response){
+
+app.get('/', function(request, response){   
      response.render('start.hbs')
+})
+
+app.get('/about', function(request, response){   
+    response.render('about.hbs')
+})
+
+app.get('/contact', function(request, response){   
+    response.render('contact.hbs')
 })
 
 app.get('/admin', function(request, response){
@@ -49,17 +64,38 @@ app.post('/admin', function(request, response){
     const course = request.body.course
     const year = request.body.year
 
-    const query = "INSERT INTO works (title, link, course, year) VALUES (?, ?, ?, ?)"
+
+    const inputErrors = []
+
+    if(title.length == fieldEmpty){
+        inputErrors.push("Title field can not be empty")
+    }
+
+    if(year.length == fieldEmpty){
+        inputErrors.push("Year field can not be empty")
+    }
+
+
+    if(inputErrors.length == 0){
+        const query = "INSERT INTO works (title, link, course, year) VALUES (?, ?, ?, ?)"
     const values = [title, link, course, year]
 
-    db.run(query, values, function(error){
-        if(error){
-            console.log(error)
-        } else {
-           response.redirect('/works')  
+        db.run(query, values, function(error){
+            if(error){
+                console.log(error)
+            } else {
+            response.redirect('/works')  
+            }
+        })
+    } else {
+        const model = {
+            inputErrors
         }
-    })
+
+        response.render('admin.hbs', model)
+    }
 })
+
 
 app.get('/works', function(request, response){
 

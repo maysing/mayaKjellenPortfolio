@@ -1,1 +1,19 @@
 <h1>Log in</h1>
+
+{{#if failedToLogin}}
+	<p>Login failed, please try again</p>
+{{/if}}
+
+<form action="/login" method="post">
+	
+		<input id="username" type="text" 
+        name="username"
+        placeholder="Username">
+	
+		<input type="password"
+        name="password"
+        placeholder="Password">
+	
+	<input id="loginButton" type="submit" value="Login">
+	
+</form>
