@@ -1,7 +1,7 @@
 <h1>Log in</h1>
 
 {{#if failedToLogin}}
-	<p>Login failed, please try again</p>
+	<p id = "loginFail">Wrong username or password, please try again.</p>
 {{/if}}
 
 <form action="/login" method="post">

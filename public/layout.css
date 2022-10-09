@@ -76,7 +76,7 @@ p {
     margin-left: 650px;
 }
 
-#adminFunctions {
+#adminSection {
     margin-left: 150px;
 }
 
@@ -102,4 +102,14 @@ p {
 
 #contactLinks {
     margin-left: 670px;
+}
+
+.aboutText {
+    width: 400px;
+    margin-left: 580px;
+}
+
+#loginFail {
+    color: red;
+    font-style: italic;
 }
