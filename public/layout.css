@@ -23,7 +23,7 @@ h2 {
     padding-left: 600px;
 }
 
-form {
+.adminForms {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -84,7 +84,7 @@ p {
     margin-bottom: 20px;
 }
 
-#loginButton {
+.formButtons {
     margin-top: 20px;
     padding-right: 7px;
     padding-left: 7px;
@@ -112,4 +112,13 @@ p {
 #loginFail {
     color: red;
     font-style: italic;
+}
+
+#guestbookForm {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-style: italic;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100px;
+    margin-left: 50px;
 }

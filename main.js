@@ -20,6 +20,13 @@ app.use(
 	})
 )
 
+app.use(
+	function(request, response, next){
+		response.locals.session = request.session
+		next()
+	}
+)
+
 app.engine('hbs', expressHandlebars.engine({
     defaultLayout: 'main.hbs',
 }))
@@ -46,17 +53,74 @@ db.run(`
 `)
 
 
+db.run(`
+
+    CREATE TABLE IF NOT EXISTS guests(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT
+    )
+`)
+
+
 //Start Page
 
-app.get('/', function(request, response){   
 
-    const model = {
-		session: request.session
-	}
+app.get('/', function(request, response){
 
-     response.render('start.hbs', model)
+    const query = "SELECT * FROM guests ORDER BY id"
+
+    const guestInputErrors = []
+
+    db.all(query, function(error, guests) {
+
+        if(error) {
+            guestInputErrors.push("Internal error")
+            
+        } else {
+            const model = {
+              guests, 
+              session: request.session
+            }
+
+        response.render('start.hbs', model) 
+        }
+   
+    })
+
 })
 
+
+app.post('/', function(request, response){
+
+    const name = request.body.name
+
+    const guestInputErrors = []
+
+    if(name.length == fieldEmpty){
+        guestInputErrors.push("Title field can not be empty")
+    }
+
+    if(guestInputErrors.length == 0){
+        const query = "INSERT INTO guests (name) VALUES (?)"
+        const values = [name]
+
+        db.run(query, values, function(error){
+            if(error){
+                guestInputErrors.push("Internal error")
+            }
+
+                const model = {
+                    guestInputErrors
+                }
+
+
+            response.render('start.hbs', model)
+            
+        })
+
+    }
+
+})
 
 
 //About Page

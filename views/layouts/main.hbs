@@ -29,8 +29,11 @@
     <a href="/contact" class="btn btn-link">Contact</a>
     
     <div id ="adminSection">
-        <a href="/admin" class="btn btn-link">Admin</a>
-        <a href="/login" class="btn btn-link">Log in</a>
+        {{#if session.isLoggedIn}}
+            <a href="/admin" class="btn btn-link">Admin</a>
+        {{else}}
+            <a href="/login" class="btn btn-link">Log in</a>
+        {{/if}}
      </div>
   </section>
   </div>
