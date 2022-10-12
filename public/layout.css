@@ -122,3 +122,15 @@ p {
     width: 100px;
     margin-left: 50px;
 }
+
+
+#commentForm {
+    width: 100px;
+    margin-left: 970px;
+}
+
+#workLink {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}

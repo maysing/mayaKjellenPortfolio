@@ -1,6 +1,6 @@
 <h1>{{work.title}}</h1>
 {{#if work}}
-	<p> {{work.link}}</p>
+	<a id="workLink" href="{{work.link}}">{{work.link}}</a>
     <p> {{work.course}}</p>
     <p> {{work.year}}</p>
     
@@ -8,7 +8,18 @@
         <input type="submit" value="DELETE">
     </form>
 
+
 {{else}}
 	<p>That work do not exist.</p>
 {{/if}}
+
+
+
+<form id="commentForm" action="" method="post">
+
+        Comment: <input type="text" name "message">
+	
+	<input class="formButtons" type="submit" value="Post">
+	
+</form>
 

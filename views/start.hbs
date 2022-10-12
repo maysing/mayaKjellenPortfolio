@@ -8,6 +8,14 @@
 </p>
 
 
+{{#if guestInputErrors.length}}
+    <ul>
+        {{#each guestInputErrors}}
+            <li>{{this}}</li>
+        {{/each}}
+    </ul>
+{{/if}}
+
 
 {{#if guests.length}}
 
@@ -22,6 +30,7 @@
     <p>At the moment we have no guests to display</p>
 
 {{/if}}
+
 
 
 

@@ -8,9 +8,11 @@ const fieldEmpty = 0
 const app = express()
 
 
-
+//login info
 const adminUsername = "maysing"
 const adminPassword = "password1"
+
+
 
 app.use(
 	expressSession({
@@ -20,6 +22,8 @@ app.use(
 	})
 )
 
+
+
 app.use(
 	function(request, response, next){
 		response.locals.session = request.session
@@ -27,19 +31,25 @@ app.use(
 	}
 )
 
+
 app.engine('hbs', expressHandlebars.engine({
     defaultLayout: 'main.hbs',
 }))
 
+
 app.use(
     express.static('public')
 )
+
 
 app.use(
 	express.urlencoded({
 		extended: false
 	})
 )
+
+
+//Create databases
 
 db.run(`
 
@@ -62,8 +72,16 @@ db.run(`
 `)
 
 
-//Start Page
+db.run(`
 
+    CREATE TABLE IF NOT EXISTS comments(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        comment TEXT
+    )
+`)
+
+
+//Start Page
 
 app.get('/', function(request, response){
 
@@ -243,6 +261,29 @@ app.get("/works/:id", function(request, response){
         }
     })
 	
+})
+
+
+
+//Delete Work
+
+app.post("delete-work/:id", function(request, response){
+
+
+const id = request.params.id
+
+const query = "DELETE FROM works WHERE id = ?"
+
+db.run(query, id, function(error){
+
+    if(error){
+        console.log("Internal error")
+    }
+
+    response.redirect("/works")
+
+})
+
 })
 
 
