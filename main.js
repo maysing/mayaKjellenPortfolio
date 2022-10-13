@@ -9,7 +9,7 @@ const app = express()
 
 
 //login info
-const adminUsername = "maysing"
+const adminUsername = "maya"
 const adminPassword = "password1"
 
 
@@ -102,9 +102,7 @@ app.get('/', function(request, response){
 
         response.render('start.hbs', model) 
         }
-   
     })
-
 })
 
 
@@ -135,9 +133,7 @@ app.post('/', function(request, response){
             response.render('start.hbs', model)
             
         })
-
     }
-
 })
 
 
@@ -178,7 +174,7 @@ app.post('/admin', function(request, response){
     }
 
     if(isNaN(year)){
-		errorMessages.push("Year must be a number")
+		inputErrors.push("Year must be a number")
 
     } else if(year < 0){
         inputErrors.push("The year can not be negative")
@@ -253,38 +249,96 @@ app.get("/works/:id", function(request, response){
         }else{const model = {
 		work: work,
 	}
-
-
 	
 	response.render('work.hbs', model)
             
         }
     })
-	
 })
-
 
 
 //Delete Work
 
-app.post("delete-work/:id", function(request, response){
+app.post("/delete-work/:id", function(request, response){
 
 
 const id = request.params.id
 
-const query = "DELETE FROM works WHERE id = ?"
+const query = `DELETE FROM works WHERE id = ?`
 
 db.run(query, id, function(error){
-
-    if(error){
-        console.log("Internal error")
-    }
 
     response.redirect("/works")
 
 })
 
 })
+
+
+//Update Work
+
+
+app.get("/update-work/:id", function(request, response){
+    
+    const id = request.params.id
+
+    const query = "SELECT * FROM works WHERE id = ?"
+
+    const values = [id]
+
+    db.get(query, values, function(error, works){
+
+    const model = {
+    works
+}
+    response.render("updateWork.hbs", model)
+})
+
+})
+    
+
+
+
+
+app.post('/update-work/:id', function(request, response){
+    
+    const id = request.params.id
+
+    const title = request.body.title
+    const link = request.body.link
+    const course = request.body.course
+    const year = request.body.year
+
+
+    const inputErrors = []
+
+    const query = `UPDATE works SET title = ?, link = ?, course = ?, year = ? WHERE id = ?`
+    const values = [title, link, course, year, id]
+
+    if(inputErrors.length == 0){
+
+        db.run(query, values, function(error){
+     
+            response.redirect('/works')    
+        })
+    }
+})
+
+
+// app.post("/update-work/:id", function(request, response){
+
+//     const id = request.params.id
+//     const values = [id, title, link, course, year]
+    
+//     const query = `UPDATE works SET title = ?, link = ?, course = ?, year = ? WHERE id = ?`
+    
+//     db.run(query, values, function(error){
+    
+//         response.render("updateWork.hbs")
+    
+//     })
+    
+//     })
 
 
 //Log in Page
