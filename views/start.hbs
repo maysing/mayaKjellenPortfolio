@@ -16,18 +16,26 @@
     </ul>
 {{/if}}
 
+<form id="guestbookForm" action="" method="post">
+	
+		Name: <input type="text" name="name" placeholder="name">
+	
+	<input class="formButtons" type="submit" value="Add me!">
+	
+</form>
+
 
 {{#if guests.length}}
 
-    <ul id="guestsList">
+    <ul id="guestList">
         {{#each guests}}
-            <li> {{name}} </li>
-        {{/each}}
+            <li> {{name}}
+                <form action="/delete-guest/{{id}}" method="POST">
+                    <input id="guestDeleteButton" type="submit" value="X">
+                </form>
+         </li>
+            {{/each}}
     </ul>
-
-{{else}}
-
-    <p>At the moment we have no guests to display</p>
 
 {{/if}}
 
@@ -35,10 +43,5 @@
 
 
 
-<form id="guestbookForm" action="" method="post">
-	
-		Name: <input type="text" name="name">
-	
-	<input class="formButtons" type="submit" value="Add me!">
-	
-</form>
+
+ 

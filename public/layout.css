@@ -73,7 +73,9 @@ p {
 }
 
 #worksList {
-    margin-left: 650px;
+    margin-left: 700px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: larger;
 }
 
 #adminSection {
@@ -133,4 +135,32 @@ p {
     display: flex;
     justify-content: center;
     margin-bottom: 10px;
+}
+
+.CRUDButtons {
+    margin-left: 727px;
+    margin-top: 20px;
+    padding-right: 7px;
+    padding-left: 7px;
+    padding-bottom: 2px;
+    background-color: rgb(217, 236, 255);
+    border-radius: 8px;
+    border: none;
+}
+
+
+#guestDeleteButton {
+    background-color: pink;
+    border: none;
+    border-radius: 9px;
+    color: white;
+    padding-left: 2px;
+    padding-right: 2px;
+    margin-left: 70px;
+}
+
+
+#guestList {
+    width: 100px;
+    margin-left: 80px;
 }
