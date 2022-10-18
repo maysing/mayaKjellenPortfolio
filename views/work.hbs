@@ -1,17 +1,19 @@
-<h1>{{work.title}}</h1>
+<h1 class="headings">{{work.title}}</h1>
 {{#if work}}
-	<a id="workLink" href="{{work.link}}">{{work.link}}</a>
-    <p> {{work.course}}</p>
-    <p> {{work.year}}</p>
-    
+  <a id="workLink" href="{{work.link}}">{{work.link}}</a>
+  <p class="workAttributes"> {{work.course}}</p>
+  <p class="workAttributes"> {{work.year}}</p>
+
+  {{#if session.isLoggedIn}}
     <form action="/delete-work/{{work.id}}" method="POST">
-        <input class="formButtons" type="submit" value="DELETE">
+      <input class="CRUDButtons" type="submit" value="DELETE" />
     </form>
 
-     <form action="/update-work/{{work.id}}">
-        <input class="formButtons" type="submit" value="UPDATE">
+    <form action="/update-work/{{work.id}}">
+      <input class="CRUDButtons" type="submit" value="UPDATE" />
     </form>
+  {{/if}}
 
 {{else}}
-	<p>That work do not exist.</p>
+  <p>That work do not exist.</p>
 {{/if}}

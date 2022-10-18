@@ -1,0 +1,33 @@
+<h1>Reviews!</h1>
+
+<form id="" action="" method="post">
+
+  Name:
+  <input type="text" name="name" placeholder="name" />
+  Comment:
+  <input type="text" name="comment" placeholder="comment" />
+
+  <input class="formButtons" type="submit" value="Post!" />
+
+</form>
+
+{{#if reviews.length}}
+
+  <ul>
+    {{#each reviews}}
+      <li>
+        {{name}}:
+        {{comment}}
+        <form class="inline-form" action="/delete-review/{{id}}" method="POST">
+          <input class="smallDeleteButton" type="submit" value="X" />
+        </form>
+
+        <form class="inline-form" action="/update-review/{{id}}">
+          <input type="submit" value="UPDATE" />
+        </form>
+
+      </li>
+    {{/each}}
+  </ul>
+
+{{/if}}

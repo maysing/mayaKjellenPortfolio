@@ -1,47 +1,42 @@
 <h1>Maya's Portfolio</h1>
 
-
 <h3>Welcome!</h3>
 
 <p class="aboutText">
-    Hi! My name is Maya Kjellén and this is my portfolio!
+  Hi! My name is Maya Kjellén and this is my portfolio!
 </p>
 
-
 {{#if guestInputErrors.length}}
-    <ul>
-        {{#each guestInputErrors}}
-            <li>{{this}}</li>
-        {{/each}}
-    </ul>
+  <ul>
+    {{#each guestInputErrors}}
+      <li>{{this}}</li>
+    {{/each}}
+  </ul>
 {{/if}}
 
 <form id="guestbookForm" action="" method="post">
-	
-		Name: <input type="text" name="name" placeholder="name">
-	
-	<input class="formButtons" type="submit" value="Add me!">
-	
-</form>
 
+  Name:
+  <input type="text" name="name" placeholder="name" />
+
+  <input class="formButtons" type="submit" value="Add me!" />
+
+</form>
 
 {{#if guests.length}}
 
-    <ul id="guestList">
-        {{#each guests}}
-            <li> {{name}}
-                <form action="/delete-guest/{{id}}" method="POST">
-                    <input id="guestDeleteButton" type="submit" value="X">
-                </form>
-         </li>
-            {{/each}}
-    </ul>
+  <ul id="guestList">
+    {{#each guests}}
+      <li>
+        {{name}}
+        <form action="/delete-guest/{{id}}" method="POST">
+          <input class="smallDeleteButton" type="submit" value="X" />
+        </form>
+
+        <a href="/update-guest/{{id}}" class="formButtons">Update</a>
+
+      </li>
+    {{/each}}
+  </ul>
 
 {{/if}}
-
-
-
-
-
-
- 
