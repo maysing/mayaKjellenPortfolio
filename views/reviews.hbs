@@ -1,6 +1,6 @@
-<h1>Reviews!</h1>
+<h1 class="headings">R E V I E W S</h1>
 
-<form id="" action="" method="post">
+<form class="review-form" action="" method="post">
 
   Name:
   <input type="text" name="name" placeholder="name" />
@@ -19,11 +19,11 @@
         {{name}}:
         {{comment}}
         <form class="inline-form" action="/delete-review/{{id}}" method="POST">
-          <input class="smallDeleteButton" type="submit" value="X" />
+          <input class="formButtons" type="submit" value="DELETE" />
         </form>
 
         <form class="inline-form" action="/update-review/{{id}}">
-          <input type="submit" value="UPDATE" />
+          <input class="formButtons" type="submit" value="UPDATE" />
         </form>
 
       </li>

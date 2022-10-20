@@ -114,6 +114,7 @@ p {
 .aboutText {
     width: 400px;
     margin-left: 580px;
+    text-align: center;
 }
 
 #loginFail {
@@ -128,6 +129,7 @@ p {
     flex-wrap: wrap;
     width: 100px;
     margin-left: 50px;
+    margin-right: 350px;
 }
 
 
@@ -153,22 +155,11 @@ p {
     border: none;
 }
 
-
-.smallDeleteButton {
-    background-color: pink;
-    border: none;
-    border-radius: 9px;
-    color: white;
-    padding-left: 2px;
-    padding-right: 2px;
-    margin-left: 70px;
-}
-
-
 #guestList {
-    width: 100px;
-    margin-left: 80px;
     list-style-type: none;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-left: 50px;
 }
 
 #updateGuestbookForm {
@@ -184,6 +175,7 @@ p {
 
 .headings {
     color: pink;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 .workAttributes {
@@ -206,4 +198,49 @@ p {
 
 .inline-form{
     display: inline;
+}
+
+.review-form {
+width: 100px;
+margin-left: 660px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-areas:
+    "content sidebar"
+}
+
+.sidebar {
+    grid-area: sidebar;
+    justify-self: center;
+    height: fit-content;
+    margin-right: 250px;
+    margin-top: 70px;
+}
+
+.content {
+    grid-area: content;
+    justify-self: center;
+    margin-top: 50px;
+    margin-right: 150px;
+}
+
+.grid-headings{
+    color: pink;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    margin-left: 600px;
+}
+
+#start-about-text {
+    justify-self: center;
+    text-align: center;
+}
+
+.small-form-buttons {
+    background-color: rgb(217, 236, 255);
+    border: none;
+    border-radius: 7px;
+    padding: 3px;
 }

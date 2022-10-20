@@ -1,68 +1,53 @@
-<h1>ADMINISTRATION</h1>
+<h1 class="headings">ADMINISTRATION</h1>
 
 {{#if inputErrors.length}}
-    <ul id="errorDisplay">
-        {{#each inputErrors}}
-            <li>{{this}}</li>
-        {{/each}}
-    </ul>
+  <ul id="errorDisplay">
+    {{#each inputErrors}}
+      <li>{{this}}</li>
+    {{/each}}
+  </ul>
 {{/if}}
 
 <div class="bg-secondary">
-    <div 
-      class="divider">
-    </div>
+  <div class="divider">
+  </div>
 </div>
 
 <form class="adminForms" action="" method="POST">
-    <div>
-        Title: 
-        <input 
-            type="text" 
-            name="title" 
-            value="{{title}}">
-    </div>
-     <div>
-       Link: 
-       <input 
-            type="url" 
-            name="link"
-            value="{{link}}"
-            placeholder="https://example.com">
-        </div>
-       
-     <div>
-        Course: 
-        <input 
-            type="text"
-            name="course"
-            value="{{course}}">
-        </div>
-    <div>
-        Year: 
-        <input 
-            type="text" 
-            name="year"
-            value="{{year}}">
-    </div>
+  <div>
+    Title:
+    <input type="text" name="title" value="{{title}}" />
+  </div>
+  <div>
+    Link:
+    <input
+      type="url"
+      name="link"
+      value="{{link}}"
+      placeholder="https://example.com"
+    />
+  </div>
 
-    <input class="formButtons" type="submit" value="Post">
+  <div>
+    Course:
+    <input type="text" name="course" value="{{course}}" />
+  </div>
+  <div>
+    Year:
+    <input type="text" name="year" value="{{year}}" />
+  </div>
+
+  <input class="formButtons" type="submit" value="Post" />
 
 </form>
 
 <div class="bg-secondary">
-    <div 
-      class="divider">
-    </div>
+  <div class="divider">
+  </div>
 </div>
 
-
 <p>
-    Add a new post to the Works page by filling in the form and press post
+  Add a new post to the Works page by filling in the form and press post
 </p>
 
-
-<input id="logoutButton" type="submit" value="Log out">
-
-
-
+<input id="logoutButton" type="submit" value="Log out" />

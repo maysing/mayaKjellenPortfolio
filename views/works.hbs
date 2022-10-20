@@ -1,17 +1,14 @@
 <h1 class="headings">W O R K S</h1>
 
-
 {{#if works.length}}
-    <ul id="worksList">
-        {{#each works}}
-            <li> <a href="/works/{{id}}"> {{title}} </a></li>
-        {{/each}}
-    </ul>
+  <ul id="worksList">
+    {{#each works}}
+      <li> <a href="/works/{{id}}"> {{title}} </a></li>
+    {{/each}}
+  </ul>
 
 {{else}}
 
-    <p>At the moment we have no works to display</p>
+  <p>At the moment we have no works to display</p>
 
 {{/if}}
-
-

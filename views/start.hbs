@@ -1,42 +1,56 @@
-<h1>Maya's Portfolio</h1>
+<div class="grid">
 
-<h3>Welcome!</h3>
+  <div class="sidebar">
+    <h1 class="headings">Maya's Portfolio</h1>
 
-<p class="aboutText">
-  Hi! My name is Maya Kjellén and this is my portfolio!
-</p>
+    <h3>Welcome!</h3>
 
-{{#if guestInputErrors.length}}
-  <ul>
-    {{#each guestInputErrors}}
-      <li>{{this}}</li>
-    {{/each}}
-  </ul>
-{{/if}}
+    <p id="start-about-text">
+      Hej! My name is Maya Kjellén and this is my portfolio! Check out my works,
+      leave a review and add yourself to the guestbook!
+    </p>
 
-<form id="guestbookForm" action="" method="post">
+    {{#if guestInputErrors.length}}
+      <ul>
+        {{#each guestInputErrors}}
+          <li>{{this}}</li>
+        {{/each}}
+      </ul>
+    {{/if}}
+  </div>
 
-  Name:
-  <input type="text" name="name" placeholder="name" />
+  <div class="content">
+    <form id="guestbookForm" action="" method="post">
 
-  <input class="formButtons" type="submit" value="Add me!" />
+      <h2>Guestbook</h2>
 
-</form>
+      Name:
+      <input type="text" name="name" placeholder="name" />
 
-{{#if guests.length}}
+      <input class="formButtons" type="submit" value="Add me!" />
 
-  <ul id="guestList">
-    {{#each guests}}
-      <li>
-        {{name}}
-        <form action="/delete-guest/{{id}}" method="POST">
-          <input class="smallDeleteButton" type="submit" value="X" />
-        </form>
+    </form>
 
-        <a href="/update-guest/{{id}}" class="formButtons">Update</a>
+    {{#if guests.length}}
 
-      </li>
-    {{/each}}
-  </ul>
+      <ul id="guestList">
+        {{#each guests}}
+          <li>
+            {{name}}
+            <form
+              class="inline-form"
+              action="/delete-guest/{{id}}"
+              method="POST"
+            >
+              <input class="small-form-buttons" type="submit" value="D" />
+            </form>
 
-{{/if}}
+            <a href="/update-guest/{{id}}" class="small-form-buttons">U</a>
+
+          </li>
+        {{/each}}
+      </ul>
+
+    {{/if}}
+  </div>
+</div>

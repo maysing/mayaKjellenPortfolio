@@ -1,67 +1,66 @@
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mayas Portfolio</title>
-    <link rel="stylesheet" href="/layout.css"> 
-    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
-</head>
-<body>
-   
+    <link rel="stylesheet" href="/layout.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/spectre.css/dist/spectre.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css"
+    />
+  </head>
+  <body>
 
-<header class="navbar">
-  <div class="p-2">
-    <section class="navbar-center">
-    <a href="/">
-        <h2 id="logo">Maya's Portfolio</h2>
-        </a>
-  </section>
-  </div>
+    <header class="navbar">
+      <div class="p-2">
+        <section class="navbar-center">
+          <a href="/">
+            <h2 id="logo">Maya's Portfolio</h2>
+          </a>
+        </section>
+      </div>
 
-  <div class="p-centered">
-  <section class="navbar-section">
-    <a href="/" class="btn btn-link">Start</a>
-    <a href="/works" class="btn btn-link">Works</a>
-    <a href="/about" class="btn btn-link">About</a>
-    <a href="/contact" class="btn btn-link">Contact</a>
-    <a href="/reviews" class="btn btn-link">Reviews</a>
+      <div class="p-centered">
+        <section class="navbar-section">
+          <a href="/" class="btn btn-link">Start</a>
+          <a href="/works" class="btn btn-link">Works</a>
+          <a href="/about" class="btn btn-link">About</a>
+          <a href="/contact" class="btn btn-link">Contact</a>
+          <a href="/reviews" class="btn btn-link">Reviews</a>
 
-    
-    <div id ="adminSection">
-        {{#if session.isLoggedIn}}
-            <a href="/admin" class="btn btn-link">Admin</a>
-        {{else}}
-            <a href="/login" class="btn btn-link">Log in</a>
-        {{/if}}
-     </div>
-  </section>
-  </div>
-  
-  <div class="bg-secondary">
-    <div 
-      class="divider">
-    </div>
-</div>
-</header>
+          <div id="adminSection">
+            {{#if session.isLoggedIn}}
+              <a href="/admin" class="btn btn-link">Admin</a>
+            {{else}}
+              <a href="/login" class="btn btn-link">Log in</a>
+            {{/if}}
+          </div>
+        </section>
+      </div>
 
+      <div class="bg-secondary">
+        <div class="divider">
+        </div>
+      </div>
+    </header>
 
-{{{body}}}
- 
- 
- 
+    {{{body}}}
 
- 
-</body>
-<footer>
+  </body>
+  <footer>
     <p id="footerText">
-    Maya's Portfolio 
-    Maya Kjellén<br>
-    New Media Design
-    Jönköping University
+      Maya's Portfolio Maya Kjellén<br />
+      New Media Design Jönköping University
     </p>
-   
-</footer>
+
+  </footer>
 </html>
