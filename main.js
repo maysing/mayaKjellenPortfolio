@@ -349,4 +349,9 @@ app.post("/delete-review/:id", function (request, response) {
   });
 });
 
+app.get("/logout", function(request, response){
+  request.session.isLoggedIn = false;
+  response.redirect("/login")
+})
+
 app.listen(8080);
