@@ -5,10 +5,12 @@ const db = new sqLite3.Database("mayaKjellenPortfolioDb.db");
 const expressSession = require("express-session");
 const fieldEmpty = 0;
 const app = express();
+const bcrypt = require("bcrypt");
 
 //login info
 const adminUsername = "maya";
-const adminPassword = "password1";
+const adminPassword =
+  "$2b$10$LwMJi.ZPYKnjA2Y5.R4aKOLpO95ENUjcKypLBq1THtAYNC2SU.0Ty";
 
 app.use(
   expressSession({
@@ -153,7 +155,7 @@ app.post("/admin", function (request, response) {
   } else if (year < 0) {
     inputErrors.push("The year can not be negative");
   }
-  if (inputErrors.length == 0) {
+  if (inputErrors.length == 0 && request.session.isLoggedIn == true) {
     const query =
       "INSERT INTO works (title, link, course, year) VALUES (?, ?, ?, ?)";
     const values = [title, link, course, year];
@@ -265,19 +267,18 @@ app.get("/login", function (request, response) {
   response.render("login.hbs");
 });
 app.post("/login", function (request, response) {
-  const password = request.body.password;
-  const username = request.body.username;
+  const enteredUsername = request.body.username;
+  const enteredPassword = request.body.password;
 
-  if (username == adminUsername && password == adminPassword) {
-    request.session.isLoggedIn = true;
-
-    response.redirect("/admin");
-  } else {
-    const model = {
-      failedToLogin: true,
-    };
-
-    response.render("login.hbs", model);
+  if (enteredUsername == adminUsername) {
+    bcrypt.compare(enteredPassword, adminPassword, function (error, result) {
+      if (result) {
+        request.session.isLoggedIn = true;
+        response.redirect("/");
+      } else{
+        response.redirect("/login");
+      }
+    });
   }
 });
 
@@ -349,9 +350,9 @@ app.post("/delete-review/:id", function (request, response) {
   });
 });
 
-app.get("/logout", function(request, response){
+app.get("/logout", function (request, response) {
   request.session.isLoggedIn = false;
-  response.redirect("/login")
-})
+  response.redirect("/login");
+});
 
 app.listen(8080);

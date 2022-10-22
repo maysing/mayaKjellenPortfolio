@@ -27,6 +27,13 @@ header {
     padding-left: 760px;
 }
 
+#login-form {
+    width: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
 #logo {
     padding-left: 20px;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -47,6 +54,7 @@ h1 {
     background-color: rgb(217, 236, 255);
     border-radius: 8px;
     border: none;
+    cursor: pointer;
 }
 
 
@@ -75,7 +83,7 @@ p {
 }
 
 #worksList {
-    margin-left: 720px;
+    margin-left: 320px;
     margin-top: 40px;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size: larger;
@@ -99,6 +107,7 @@ p {
     background-color: rgb(217, 236, 255);
     border-radius: 8px;
     border: none;
+    cursor: pointer;
 }
 
 #errorDisplay {
@@ -108,7 +117,12 @@ p {
 }
 
 #contactLinks {
-    margin-left: 670px;
+    text-align: center;
+}
+
+#farmor-image {
+    margin-left: 400px;
+    border-radius: 270px;
 }
 
 .aboutText {
@@ -132,12 +146,6 @@ p {
     margin-right: 350px;
 }
 
-
-#commentForm {
-    width: 100px;
-    margin-left: 970px;
-}
-
 #workLink {
     display: flex;
     justify-content: center;
@@ -153,6 +161,7 @@ p {
     background-color: rgb(217, 236, 255);
     border-radius: 8px;
     border: none;
+    cursor: pointer;
 }
 
 #guestList {
@@ -178,6 +187,12 @@ p {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
+#works-heading {
+    color: pink;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    margin-left: 270px;
+}
+
 .workAttributes {
     color: rgb(124, 47, 183);
     font-weight: 200;
@@ -186,14 +201,7 @@ p {
 }
 
 #logout-button {
-    margin-left: 728px;
-    margin-top: 50px;
-    background-color: pink;
-    border: none;
-    border-radius: 8px;
-    padding-left: 7px;
-    padding-right: 7px;
-    padding-bottom: 3px;
+    margin-left: 733px;
 }
 
 .inline-form{
@@ -201,8 +209,24 @@ p {
 }
 
 .review-form {
-width: 100px;
-margin-left: 660px;
+    width: 100px;
+    margin-left: 15px;
+}
+
+#reviews-list {
+    width: 600px;
+    margin-left: 100px;
+    margin-right: 50px;
+}
+
+#review-description {
+    text-align: center;
+    justify-self: center;
+    width: 270px;
+}
+
+#contact-description {
+    margin-top: 60px;
 }
 
 .grid {
@@ -243,4 +267,26 @@ margin-left: 660px;
     border: none;
     border-radius: 7px;
     padding: 3px;
+    cursor: pointer;
 }
+
+#jin-image {
+    margin-right: 200px;
+    border-radius: 200px;
+}
+
+#c3po-image {
+    border-radius: 180px;
+}
+
+#soulquest-image {
+    margin-left: 270px;
+    border-radius: 170px;
+}
+
+#update-review-form {
+    width: 100px;
+    justify-content: space-around;
+    margin-left: 600px;
+}
+

@@ -1,5 +1,9 @@
-<h1 class="headings">R E V I E W S</h1>
 
+
+<div class="grid">
+  <div class="content">
+<h1 class="headings">R E V I E W S</h1>
+<p id="review-description">Please leave a review by writing you name and a comment refering to my page or works!</p>
 <form class="review-form" action="" method="post">
 
   Name:
@@ -10,10 +14,13 @@
   <input class="formButtons" type="submit" value="Post!" />
 
 </form>
+</div>
+
+<div class="sidebar">
 
 {{#if reviews.length}}
 
-  <ul>
+  <ul id="reviews-list">
     {{#each reviews}}
       <li>
         {{name}}:
@@ -31,3 +38,5 @@
   </ul>
 
 {{/if}}
+</div>
+</div>
