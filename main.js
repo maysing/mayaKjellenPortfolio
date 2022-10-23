@@ -1,6 +1,6 @@
 const express = require("express");
 const expressHandlebars = require("express-handlebars");
-const sqLite3 = require("sqLite3");
+const sqLite3 = require("sqlite3");
 const db = new sqLite3.Database("mayaKjellenPortfolioDb.db");
 const expressSession = require("express-session");
 const app = express();
