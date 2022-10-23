@@ -3,9 +3,9 @@ const expressHandlebars = require("express-handlebars");
 const sqLite3 = require("sqLite3");
 const db = new sqLite3.Database("mayaKjellenPortfolioDb.db");
 const expressSession = require("express-session");
-const fieldEmpty = 0;
 const app = express();
 const bcrypt = require("bcrypt");
+const fieldEmpty = 0;
 
 //login info
 const adminUsername = "maya";
