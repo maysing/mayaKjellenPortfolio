@@ -5,6 +5,7 @@ const db = new sqLite3.Database("mayaKjellenPortfolioDb.db");
 const expressSession = require("express-session");
 const app = express();
 const bcrypt = require("bcrypt");
+const PORT = process.env.PORT || 3030;
 const fieldEmpty = 0;
 
 //login info
@@ -359,4 +360,6 @@ app.get("/logout", function (request, response) {
   response.redirect("/login");
 });
 
-app.listen(8080);
+app.listen(PORT, () => {
+  console.log(`server started on port ${PORT}`);
+});
