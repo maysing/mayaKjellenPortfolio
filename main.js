@@ -1,7 +1,7 @@
 const express = require("express");
 const expressHandlebars = require("express-handlebars");
-const sqlite3 = require("sqlite3");
-const db = new sqlite3.Database("mayaKjellenPortfolioDb.db");
+const sqLite3 = require("sqlite3");
+const db = new sqLite3.Database("mayaKjellenPortfolioDb.db");
 const expressSession = require("express-session");
 const app = express();
 const bcrypt = require("bcrypt");
