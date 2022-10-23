@@ -5,7 +5,6 @@ const db = new sqLite3.Database("mayaKjellenPortfolioDb.db");
 const expressSession = require("express-session");
 const app = express();
 const bcrypt = require("bcrypt");
-const PORT = process.env.PORT || 3030;
 const fieldEmpty = 0;
 
 //login info
@@ -278,12 +277,17 @@ app.post("/login", function (request, response) {
         response.redirect("/");
       } else {
         const model = {
-          failedToLogin: true,
-        }
+          failedToLogin,
+        };
         response.redirect("/login");
-        response.render("login.hbs", model)
+        response.render("login.hbs", model);
       }
     });
+  } else {
+    const model = {
+      failedToLogin: true,
+    };
+    response.render("login.hbs", model)
   }
 });
 
@@ -360,6 +364,4 @@ app.get("/logout", function (request, response) {
   response.redirect("/login");
 });
 
-app.listen(PORT, () => {
-  console.log(`server started on port ${PORT}`);
-});
+app.listen(8080);
