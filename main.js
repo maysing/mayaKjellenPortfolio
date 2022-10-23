@@ -275,8 +275,12 @@ app.post("/login", function (request, response) {
       if (result) {
         request.session.isLoggedIn = true;
         response.redirect("/");
-      } else{
+      } else {
+        const model = {
+          failedToLogin: true,
+        }
         response.redirect("/login");
+        response.render("login.hbs", model)
       }
     });
   }

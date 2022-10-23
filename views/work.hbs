@@ -1,16 +1,16 @@
 <h1 class="headings">{{work.title}}</h1>
 {{#if work}}
-  <a id="workLink" href="{{work.link}}">{{work.link}}</a>
-  <p class="workAttributes"> {{work.course}}</p>
-  <p class="workAttributes"> {{work.year}}</p>
+  <a id="work-link" href="{{work.link}}">{{work.link}}</a>
+  <p class="work-attributes"> Course: {{work.course}}</p>
+  <p class="work-attributes"> {{work.year}}</p>
 
   {{#if session.isLoggedIn}}
     <form action="/delete-work/{{work.id}}" method="POST">
-      <input class="CRUDButtons" type="submit" value="DELETE" />
+      <input class="crud-buttons" type="submit" value="DELETE" />
     </form>
 
     <form action="/update-work/{{work.id}}">
-      <input class="CRUDButtons" type="submit" value="UPDATE" />
+      <input class="crud-buttons" type="submit" value="UPDATE" />
     </form>
   {{/if}}
 

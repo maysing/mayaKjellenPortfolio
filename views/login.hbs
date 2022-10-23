@@ -1,15 +1,15 @@
 <h1 class="headings">Log in</h1>
 
 {{#if failedToLogin}}
-  <p id="loginFail">Wrong username or password, please try again.</p>
+  <p id="login-fail">Wrong username or password, please try again.</p>
 {{/if}}
 
-<form class="adminForms" action="/login" method="post">
+<form class="admin-forms" action="/login" method="post">
 
   <input id="username" type="text" name="username" placeholder="Username" />
 
   <input type="password" name="password" placeholder="Password" />
 
-  <input class="formButtons" type="submit" value="Login" />
+  <input class="form-buttons" type="submit" value="Login" />
 
 </form>

@@ -20,20 +20,20 @@
   </div>
 
   <div class="content">
-    <form id="guestbookForm" action="" method="post">
+    <form id="guestbook-form" action="" method="post">
 
       <h2>Guestbook</h2>
 
       Name:
       <input type="text" name="name" placeholder="name" />
 
-      <input class="formButtons" type="submit" value="Add me!" />
+      <input class="form-buttons" type="submit" value="Add me!" />
 
     </form>
 
     {{#if guests.length}}
 
-      <ul id="guestList">
+      <ul id="guest-list">
         {{#each guests}}
           <li>
             {{name}}
@@ -42,10 +42,10 @@
               action="/delete-guest/{{id}}"
               method="POST"
             >
-              <input class="small-form-buttons" type="submit" value="Delete" />
+              <input class="form-buttons" type="submit" value="Delete" />
             </form>
 
-            <a href="/update-guest/{{id}}" class="small-form-buttons">Edit</a>
+            <a href="/update-guest/{{id}}" class="form-buttons">Edit</a>
 
           </li>
         {{/each}}

@@ -1,292 +1,291 @@
-* {
-    margin: 0;
-    padding: 0;
-}
+/* General */
 
-body {
-    background-color: rgb(74, 12, 74);
+* {
+  margin: 0;
+  padding: 0;
 }
 
 header {
-    background-color: rgb(217, 236, 255);
-    height: 80px;
-    padding-top: 10px;
-   }
-
+  background-color: rgb(217, 236, 255);
+  height: 80px;
+  padding-top: 10px;
+}
 
 .navbar-section {
-    padding-top: 10px;
-    padding-left: 600px;
-}
-
-.adminForms {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    width: 100px;
-    padding-left: 760px;
-}
-
-#login-form {
-    width: 100px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+  padding-top: 10px;
+  padding-left: 600px;
 }
 
 #logo {
-    padding-left: 20px;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  padding-left: 20px;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
+
+#admin-section {
+  margin-left: 150px;
+}
+
+.form-buttons {
+  margin-top: 20px;
+  padding-right: 7px;
+  padding-left: 7px;
+  padding-bottom: 2px;
+  background-color: rgb(217, 236, 255);
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+#error-display {
+  margin-left: 650px;
+  font-style: italic;
+  color: red;
 }
 
 h1 {
-    display: flex;
-    justify-content: center;
-    padding-top: 40px;
-    
+  display: flex;
+  justify-content: center;
+  padding-top: 40px;
 }
-
-#postButton {
-    margin-top: 20px;
-    padding-right: 7px;
-    padding-left: 7px;
-    padding-bottom: 2px;
-    background-color: rgb(217, 236, 255);
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-}
-
 
 footer {
-   background-color: rgb(95, 118, 150);
-   height: 500px;
-   margin-top: 90px;
+  background-color: rgb(95, 118, 150);
+  height: 500px;
+  margin-top: 90px;
 }
 
-#footerText {
-    width: 150px;
-    color: rgb(180, 217, 249);
-    margin-left: 100px;
-    padding-top: 40px;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+#footer-text {
+  width: 150px;
+  color: rgb(180, 217, 249);
+  margin-left: 100px;
+  padding-top: 40px;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
 }
 
 h3 {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 p {
-    display: flex;
-    justify-content: center;
-}
-
-#worksList {
-    margin-left: 320px;
-    margin-top: 40px;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    font-size: larger;
-    color: pink;
-    list-style-type: armenian;
-}
-
-#adminSection {
-    margin-left: 150px;
-}
-
-#username {
-    margin-bottom: 20px;
-}
-
-.formButtons {
-    margin-top: 20px;
-    padding-right: 7px;
-    padding-left: 7px;
-    padding-bottom: 2px;
-    background-color: rgb(217, 236, 255);
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-}
-
-#errorDisplay {
-    margin-left: 650px;
-    font-style: italic;
-    color: red;
-}
-
-#contactLinks {
-    text-align: center;
-}
-
-#farmor-image {
-    margin-left: 400px;
-    border-radius: 270px;
-}
-
-.aboutText {
-    width: 400px;
-    margin-left: 580px;
-    text-align: center;
-}
-
-#loginFail {
-    color: red;
-    font-style: italic;
-}
-
-#guestbookForm {
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    font-style: italic;
-    display: flex;
-    flex-wrap: wrap;
-    width: 100px;
-    margin-left: 50px;
-    margin-right: 350px;
-}
-
-#workLink {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 10px;
-}
-
-.CRUDButtons {
-    margin-left: 727px;
-    margin-top: 20px;
-    padding-right: 7px;
-    padding-left: 7px;
-    padding-bottom: 2px;
-    background-color: rgb(217, 236, 255);
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-}
-
-#guestList {
-    list-style-type: none;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    margin-left: 50px;
-}
-
-#updateGuestbookForm {
-    margin-left: 60px;
-    margin-top: 40px;
-}
-
-#updateGuestbookHeader {
-    margin-left: 60px;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    margin-top: 30px;
+  display: flex;
+  justify-content: center;
 }
 
 .headings {
-    color: pink;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  color: pink;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
 }
 
-#works-heading {
-    color: pink;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    margin-left: 270px;
+.inline-form {
+  display: inline;
 }
 
-.workAttributes {
-    color: rgb(124, 47, 183);
-    font-weight: 200;
-    font-size: larger;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-}
-
-#logout-button {
-    margin-left: 733px;
-}
-
-.inline-form{
-    display: inline;
-}
-
-.review-form {
-    width: 100px;
-    margin-left: 15px;
-}
-
-#reviews-list {
-    width: 600px;
-    margin-left: 100px;
-    margin-right: 50px;
-}
-
-#review-description {
-    text-align: center;
-    justify-self: center;
-    width: 270px;
-}
-
-#contact-description {
-    margin-top: 60px;
-}
+/* Grid */
 
 .grid {
-    display: grid;
-    grid-template-columns: 50% 50%;
-    grid-template-areas:
-    "content sidebar"
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-areas: "content sidebar";
 }
 
 .sidebar {
-    grid-area: sidebar;
-    justify-self: center;
-    height: fit-content;
-    margin-right: 250px;
-    margin-top: 70px;
+  grid-area: sidebar;
+  justify-self: center;
+  height: fit-content;
+  margin-right: 250px;
+  margin-top: 70px;
 }
 
 .content {
-    grid-area: content;
-    justify-self: center;
-    margin-top: 50px;
-    margin-right: 150px;
+  grid-area: content;
+  justify-self: center;
+  margin-top: 50px;
+  margin-right: 150px;
 }
 
-.grid-headings{
-    color: pink;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    margin-left: 600px;
+.grid-headings {
+  color: pink;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  margin-left: 600px;
 }
+
+/* Start Page */
 
 #start-about-text {
-    justify-self: center;
-    text-align: center;
+  text-align: center;
 }
 
-.small-form-buttons {
-    background-color: rgb(217, 236, 255);
-    border: none;
-    border-radius: 7px;
-    padding: 3px;
-    cursor: pointer;
+#guestbook-form {
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  font-style: italic;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100px;
+  margin-left: 50px;
+  margin-right: 350px;
+}
+
+#guest-list {
+  list-style-type: none;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-left: 50px;
+}
+
+#updateGuestbook-form {
+  margin-left: 60px;
+  margin-top: 40px;
+}
+
+#updateGuestbook-header {
+  margin-left: 60px;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  margin-top: 30px;
+}
+
+/* Works page */
+
+#works-list {
+  margin-left: 300px;
+  margin-top: 40px;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  font-size: larger;
+  color: pink;
+  list-style-type: armenian;
+}
+
+#works-heading {
+  color: pink;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  margin-left: 270px;
 }
 
 #jin-image {
-    margin-right: 200px;
-    border-radius: 200px;
-}
-
-#c3po-image {
-    border-radius: 180px;
+  margin-right: 200px;
+  border-radius: 200px;
 }
 
 #soulquest-image {
-    margin-left: 270px;
-    border-radius: 170px;
+  margin-left: 270px;
+  border-radius: 170px;
+}
+
+#c3po-image {
+  border-radius: 180px;
+}
+
+/* Individual work page */
+
+#work-link {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.work-attributes {
+  font-weight: 200;
+  font-size: larger;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
+
+.crud-Buttons {
+  margin-left: 727px;
+  margin-top: 20px;
+  padding-right: 7px;
+  padding-left: 7px;
+  padding-bottom: 2px;
+  background-color: rgb(217, 236, 255);
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Contact page */
+
+#contact-links {
+  text-align: center;
+}
+
+#farmor-image {
+  margin-left: 400px;
+  border-radius: 270px;
+}
+
+#contact-description {
+  margin-top: 60px;
+}
+
+/* About page */
+
+.about-text {
+  width: 400px;
+  margin-left: 580px;
+  text-align: center;
+}
+
+/* Reviews page */
+
+#review-form {
+  width: 100px;
+  margin-left: 25px;
+}
+
+#reviews-list {
+  width: 600px;
+  margin-left: 100px;
+  margin-right: 50px;
+}
+
+#review-description {
+  text-align: center;
+  justify-self: center;
+  width: 270px;
 }
 
 #update-review-form {
-    width: 100px;
-    justify-content: space-around;
-    margin-left: 600px;
+  width: 100px;
+  justify-content: space-around;
+  margin-left: 665px;
 }
 
+/* Admin page */
+
+.admin-forms {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100px;
+  padding-left: 760px;
+}
+
+#logout-button {
+  margin-left: 733px;
+}
+
+/* Login page */
+
+#username {
+  margin-bottom: 20px;
+}
+
+#login-form {
+  width: 100px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+#login-fail {
+  color: red;
+  font-style: italic;
+}

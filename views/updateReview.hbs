@@ -1,6 +1,10 @@
 <h1>Update Review</h1>
 
-<form id="update-review-form" action="/update-review/{{reviews.id}}" method="post">
+<form
+  id="update-review-form"
+  action="/update-review/{{reviews.id}}"
+  method="post"
+>
 
   Name:
   <input type="text" name="name" placeholder="name" value="{{reviews.name}}" />
@@ -12,6 +16,6 @@
     value="{{reviews.comment}}"
   />
 
-  <input class="formButtons" type="submit" value="Update!" />
+  <input class="form-buttons" type="submit" value="Update!" />
 
 </form>
