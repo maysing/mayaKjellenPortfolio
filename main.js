@@ -5,11 +5,10 @@ const db = new sqLite3.Database("mayaKjellenPortfolioDb.db");
 const expressSession = require("express-session");
 const app = express();
 const bcrypt = require("bcrypt");
-const fieldEmpty = 0;
 
 //login info
 const adminUsername = "maya";
-const adminPassword =
+const hashedadminPassword =
   "$2b$10$LwMJi.ZPYKnjA2Y5.R4aKOLpO95ENUjcKypLBq1THtAYNC2SU.0Ty";
 
 app.use(
@@ -93,9 +92,11 @@ app.post("/delete-guest/:id", function (request, response) {
 
   const query = `DELETE FROM guests WHERE id = ?`;
 
-  db.run(query, id, function (error) {
-    response.redirect("/");
-  });
+  if (request.session.isLoggedIn == true) {
+    db.run(query, id, function (error) {
+      response.redirect("/");
+    });
+  }
 });
 
 app.get("/update-guest/:id", function (request, response) {
@@ -105,12 +106,14 @@ app.get("/update-guest/:id", function (request, response) {
 
   const values = [id];
 
-  db.get(query, values, function (error, guests) {
-    const model = {
-      guest: guests,
-    };
-    response.render("updateGuest.hbs", model);
-  });
+  if (request.session.isLoggedIn == true) {
+    db.get(query, values, function (error, guests) {
+      const model = {
+        guest: guests,
+      };
+      response.render("updateGuest.hbs", model);
+    });
+  }
 });
 
 app.post("/update-guest/:id", function (request, response) {
@@ -120,9 +123,11 @@ app.post("/update-guest/:id", function (request, response) {
 
   const query = `UPDATE guests SET name = ? WHERE id = ?`;
 
-  db.run(query, values, function (error) {
-    response.redirect("/");
-  });
+  if (request.session.isLoggedIn == true) {
+    db.run(query, values, function (error) {
+      response.redirect("/");
+    });
+  }
 });
 
 //About Page
@@ -133,20 +138,20 @@ app.get("/about", function (request, response) {
 app.get("/contact", function (request, response) {
   response.render("contact.hbs");
 });
-//Administration/Posting Page
-app.get("/admin", function (request, response) {
-  response.render("admin.hbs");
+//Create Work Page
+app.get("/createWork", function (request, response) {
+  response.render("createWork.hbs");
 });
-app.post("/admin", function (request, response) {
+app.post("/createWork", function (request, response) {
   const title = request.body.title;
   const link = request.body.link;
   const course = request.body.course;
   const year = request.body.year;
   const inputErrors = [];
-  if (title.length == fieldEmpty) {
+  if (title.length == 0) {
     inputErrors.push("Title field can not be empty");
   }
-  if (year.length == fieldEmpty) {
+  if (year.length == 0) {
     inputErrors.push("Year field can not be empty");
   }
 
@@ -174,9 +179,10 @@ app.post("/admin", function (request, response) {
     if (!request.session.isLoggedIn) {
       inputErrors.push("Not logged in");
     }
-    response.render("admin.hbs", model);
+    response.render("createWork.hbs", model);
   }
 });
+
 //Works Page
 app.get("/works", function (request, response) {
   const query = "SELECT * FROM works ORDER BY id";
@@ -218,10 +224,11 @@ app.post("/delete-work/:id", function (request, response) {
   const id = request.params.id;
 
   const query = `DELETE FROM works WHERE id = ?`;
-
-  db.run(query, id, function (error) {
-    response.redirect("/works");
-  });
+  if (request.session.isLoggedIn == true) {
+    db.run(query, id, function (error) {
+      response.redirect("/works");
+    });
+  }
 });
 
 //Update Work
@@ -233,12 +240,14 @@ app.get("/update-work/:id", function (request, response) {
 
   const values = [id];
 
-  db.get(query, values, function (error, works) {
-    const model = {
-      works,
-    };
-    response.render("updateWork.hbs", model);
-  });
+  if (request.session.isLoggedIn == true) {
+    db.get(query, values, function (error, works) {
+      const model = {
+        works,
+      };
+      response.render("updateWork.hbs", model);
+    });
+  }
 });
 
 app.post("/update-work/:id", function (request, response) {
@@ -254,7 +263,7 @@ app.post("/update-work/:id", function (request, response) {
   const query = `UPDATE works SET title = ?, link = ?, course = ?, year = ? WHERE id = ?`;
   const values = [title, link, course, year, id];
 
-  if (inputErrors.length == 0) {
+  if (inputErrors.length == 0 && request.session.isLoggedIn == true) {
     db.run(query, values, function (error) {
       response.redirect("/works");
     });
@@ -271,23 +280,27 @@ app.post("/login", function (request, response) {
   const enteredPassword = request.body.password;
 
   if (enteredUsername == adminUsername) {
-    bcrypt.compare(enteredPassword, adminPassword, function (error, result) {
-      if (result) {
-        request.session.isLoggedIn = true;
-        response.redirect("/");
-      } else {
-        const model = {
-          failedToLogin,
-        };
-        response.redirect("/login");
-        response.render("login.hbs", model);
+    bcrypt.compare(
+      enteredPassword,
+      hashedadminPassword,
+      function (error, passwordIsCorrect) {
+        if (passwordIsCorrect) {
+          request.session.isLoggedIn = true;
+          response.redirect("/");
+        } else {
+          const model = {
+            failedToLogin,
+          };
+          response.redirect("/login");
+          response.render("login.hbs", model);
+        }
       }
-    });
+    );
   } else {
     const model = {
       failedToLogin: true,
     };
-    response.render("login.hbs", model)
+    response.render("login.hbs", model);
   }
 });
 
@@ -344,19 +357,22 @@ app.post("/update-review/:id", function (request, response) {
   const query = `UPDATE reviews SET name = ?, comment = ? WHERE id = ?`;
   const values = [name, comment, id];
 
-  db.run(query, values, function (error) {
-    response.redirect("/reviews");
-  });
+  if (request.session.isLoggedIn == true) {
+    db.run(query, values, function (error) {
+      response.redirect("/reviews");
+    });
+  }
 });
 
 app.post("/delete-review/:id", function (request, response) {
   const id = request.params.id;
-
   const query = `DELETE FROM reviews WHERE id = ?`;
 
-  db.run(query, id, function (error) {
-    response.redirect("/reviews");
-  });
+  if (request.session.isLoggedIn == true) {
+    db.run(query, id, function (error) {
+      response.redirect("/reviews");
+    });
+  }
 });
 
 app.get("/logout", function (request, response) {
