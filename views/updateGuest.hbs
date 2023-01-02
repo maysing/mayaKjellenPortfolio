@@ -8,3 +8,11 @@
   <input class="form-buttons" type="submit" value="Update!" />
 
 </form>
+
+{{#if guestInputErrors.length}}
+      <ul>
+        {{#each guestInputErrors}}
+          <li id="guest-error-messages">{{this}}</li>
+        {{/each}}
+      </ul>
+    {{/if}}

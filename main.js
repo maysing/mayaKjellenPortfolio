@@ -62,6 +62,7 @@ db.run(`
 app.get("/", function (request, response) {
   const query = "SELECT * FROM guests ORDER BY id";
   const guestInputErrors = [];
+
   db.all(query, function (error, guests) {
     if (error) {
       guestInputErrors.push("Internal error");
@@ -69,6 +70,7 @@ app.get("/", function (request, response) {
       const model = {
         guests,
         session: request.session,
+        guestInputErrors,
       };
 
       response.render("start.hbs", model);
@@ -78,13 +80,29 @@ app.get("/", function (request, response) {
 
 app.post("/", function (request, response) {
   const name = request.body.name;
+  const guestInputErrors = [];
 
   const query = "INSERT INTO guests (name) VALUES (?)";
   const values = [name];
 
-  db.run(query, values, function (error) {
-    response.redirect("/");
-  });
+  if (name.length == 0) {
+    guestInputErrors.push("Must enter a name");
+  }
+
+  if (guestInputErrors == 0) {
+    db.run(query, values, function (error) {
+      if (error) {
+        guestInputErrors.push("Internal error");
+      } else {
+        response.redirect("/");
+      }
+    });
+  } else {
+    const model = {
+      guestInputErrors,
+    };
+    response.render("start.hbs", model);
+  }
 });
 
 app.post("/delete-guest/:id", function (request, response) {
@@ -120,13 +138,23 @@ app.post("/update-guest/:id", function (request, response) {
   const id = request.params.id;
   const name = request.body.name;
   const values = [name, id];
+  const guestInputErrors = [];
+
+  if (name.length == 0) {
+    guestInputErrors.push("Must enter a name");
+  }
 
   const query = `UPDATE guests SET name = ? WHERE id = ?`;
 
-  if (request.session.isLoggedIn == true) {
+  if (guestInputErrors == 0 && request.session.isLoggedIn == true) {
     db.run(query, values, function (error) {
       response.redirect("/");
     });
+  } else {
+    const model = {
+      guestInputErrors,
+    };
+    response.render("updateGuest.hbs", model);
   }
 });
 
@@ -138,7 +166,7 @@ app.get("/about", function (request, response) {
 app.get("/contact", function (request, response) {
   response.render("contact.hbs");
 });
-//Create Work Page
+//Create Work
 app.get("/createWork", function (request, response) {
   response.render("createWork.hbs");
 });
@@ -148,6 +176,7 @@ app.post("/createWork", function (request, response) {
   const course = request.body.course;
   const year = request.body.year;
   const inputErrors = [];
+
   if (title.length == 0) {
     inputErrors.push("Title field can not be empty");
   }
@@ -260,6 +289,19 @@ app.post("/update-work/:id", function (request, response) {
 
   const inputErrors = [];
 
+  if (title.length == 0) {
+    inputErrors.push("Title field can not be empty");
+  }
+  if (year.length == 0) {
+    inputErrors.push("Year field can not be empty");
+  }
+
+  if (isNaN(year)) {
+    inputErrors.push("Year must be a number");
+  } else if (year < 0) {
+    inputErrors.push("The year can not be negative");
+  }
+
   const query = `UPDATE works SET title = ?, link = ?, course = ?, year = ? WHERE id = ?`;
   const values = [title, link, course, year, id];
 
@@ -267,6 +309,11 @@ app.post("/update-work/:id", function (request, response) {
     db.run(query, values, function (error) {
       response.redirect("/works");
     });
+  } else {
+    const model = {
+      inputErrors,
+    };
+    response.render("updateWork.hbs", model);
   }
 });
 
@@ -324,13 +371,29 @@ app.get("/reviews", function (request, response) {
 app.post("/reviews", function (request, response) {
   const name = request.body.name;
   const comment = request.body.comment;
+  const reviewInputErrors = [];
+
+  if (name.length == 0) {
+    reviewInputErrors.push("Must enter a name");
+  }
+
+  if (comment.length == 0) {
+    reviewInputErrors.push("Must enter a comment");
+  }
 
   const query = "INSERT INTO reviews (name, comment) VALUES (?, ?)";
   const values = [name, comment];
 
-  db.run(query, values, function (error) {
-    response.redirect("/reviews");
-  });
+  if (reviewInputErrors.length == 0) {
+    db.run(query, values, function (error) {
+      response.redirect("/reviews");
+    });
+  } else {
+    const model = {
+      reviewInputErrors,
+    };
+    response.render("reviews.hbs", model);
+  }
 });
 
 app.get("/update-review/:id", function (request, response) {

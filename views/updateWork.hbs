@@ -1,5 +1,13 @@
 <h1>Update Works</h1>
 
+{{#if inputErrors.length}}
+  <ul id="error-display">
+    {{#each inputErrors}}
+      <li>{{this}}</li>
+    {{/each}}
+  </ul>
+{{/if}}
+
 <div class="bg-secondary">
   <div class="divider">
   </div>

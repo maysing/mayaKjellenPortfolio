@@ -10,13 +10,8 @@
       leave a review and add yourself to the guestbook!
     </p>
 
-    {{#if guestInputErrors.length}}
-      <ul>
-        {{#each guestInputErrors}}
-          <li>{{this}}</li>
-        {{/each}}
-      </ul>
-    {{/if}}
+   
+
   </div>
 
   <div class="content">
@@ -51,6 +46,14 @@
         {{/each}}
       </ul>
 
+    {{/if}}
+    
+    {{#if guestInputErrors.length}}
+      <ul>
+        {{#each guestInputErrors}}
+          <li id="guest-error-messages">{{this}}</li>
+        {{/each}}
+      </ul>
     {{/if}}
   </div>
 </div>

@@ -1,41 +1,52 @@
-
-
 <div class="grid">
   <div class="content">
-<h1 class="headings">R E V I E W S</h1>
-<p id="review-description">Please leave a review by writing you name and a comment refering to my page or works!</p>
-<form id="review-form" action="" method="post">
+    <h1 class="headings">R E V I E W S</h1>
+    <p id="review-description">Please leave a review by writing you name and a
+      comment refering to my page or works!</p>
+    <form id="review-form" action="" method="post">
 
-  Name:
-  <input type="text" name="name" placeholder="name" />
-  Comment:
-  <input type="text" name="comment" placeholder="comment" />
+      Name:
+      <input type="text" name="name" placeholder="name" />
+      Comment:
+      <input type="text" name="comment" placeholder="comment" />
 
-  <input class="form-buttons" type="submit" value="Post!" />
+      <input class="form-buttons" type="submit" value="Post!" />
 
-</form>
-</div>
+    </form>
+  </div>
 
-<div class="sidebar">
-
-{{#if reviews.length}}
-
-  <ul id="reviews-list">
-    {{#each reviews}}
-      <li>
-        {{name}}:
-        {{comment}}
-        <form class="inline-form" action="/delete-review/{{id}}" method="POST">
-          <input class="form-buttons" type="submit" value="DELETE" />
-        </form>
-
-        <form class="inline-form" action="/update-review/{{id}}">
-          <input class="form-buttons" type="submit" value="UPDATE" />
-        </form>
-
-      </li>
+  {{#if reviewInputErrors.length}}
+  <ul id="review-error-messages">
+    {{#each reviewInputErrors}}
+      <li>{{this}}</li>
     {{/each}}
   </ul>
 {{/if}}
-</div>
+
+  <div class="sidebar">
+
+    {{#if reviews.length}}
+
+      <ul id="reviews-list">
+        {{#each reviews}}
+          <li>
+            {{name}}:
+            {{comment}}
+            <form
+              class="inline-form"
+              action="/delete-review/{{id}}"
+              method="POST"
+            >
+              <input class="form-buttons" type="submit" value="DELETE" />
+            </form>
+
+            <form class="inline-form" action="/update-review/{{id}}">
+              <input class="form-buttons" type="submit" value="UPDATE" />
+            </form>
+
+          </li>
+        {{/each}}
+      </ul>
+    {{/if}}
+  </div>
 </div>
