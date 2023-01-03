@@ -5,6 +5,8 @@ const db = new sqLite3.Database("mayaKjellenPortfolioDb.db");
 const expressSession = require("express-session");
 const app = express();
 const bcrypt = require("bcrypt");
+const connectSqlite3 = require ('connect-sqlite3')
+const SQLiteStore = connectSqlite3 (expressSession);
 
 //login info
 const adminUsername = "maya";
@@ -13,6 +15,7 @@ const hashedadminPassword =
 
 app.use(
   expressSession({
+    store: new SQLiteStore ({db: "session-db.db"}),
     saveUninitialized: false,
     resave: false,
     secret: "fsecufeoue",
@@ -442,5 +445,6 @@ app.get("/logout", function (request, response) {
   request.session.isLoggedIn = false;
   response.redirect("/login");
 });
+
 
 app.listen(8080);

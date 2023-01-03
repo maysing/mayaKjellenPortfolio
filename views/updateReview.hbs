@@ -19,3 +19,11 @@
   <input class="form-buttons" type="submit" value="Update!" />
 
 </form>
+
+ {{#if reviewInputErrors.length}}
+  <ul id="error-display">
+    {{#each reviewInputErrors}}
+      <li>{{this}}</li>
+    {{/each}}
+  </ul>
+{{/if}}
