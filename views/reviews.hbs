@@ -16,12 +16,12 @@
   </div>
 
   {{#if reviewInputErrors.length}}
-  <ul id="review-error-messages">
-    {{#each reviewInputErrors}}
-      <li>{{this}}</li>
-    {{/each}}
-  </ul>
-{{/if}}
+    <ul id="review-error-messages">
+      {{#each reviewInputErrors}}
+        <li>{{this}}</li>
+      {{/each}}
+    </ul>
+  {{/if}}
 
   <div class="sidebar">
 
@@ -45,6 +45,14 @@
             </form>
 
           </li>
+        {{/each}}
+      </ul>
+    {{/if}}
+
+    {{#if notLoggedIn.length}}
+      <ul id="guest-error-messages">
+        {{#each notLoggedIn}}
+          <li>{{this}}</li>
         {{/each}}
       </ul>
     {{/if}}

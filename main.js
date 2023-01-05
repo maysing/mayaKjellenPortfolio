@@ -5,7 +5,6 @@ const db = new sqLite3.Database("mayaKjellenPortfolioDb.db");
 const expressSession = require("express-session");
 const app = express();
 const bcrypt = require("bcrypt");
-const connectSqlite3 = require ('connect-sqlite3')
 const SQLiteStore = connectSqlite3 (expressSession);
 
 //login info
