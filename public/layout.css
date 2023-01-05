@@ -268,6 +268,13 @@ p {
   color: red;
 }
 
+#not-logged-in-error-messages {
+  color: red;
+  margin-left: 200px;
+  margin-top: 50px;
+  list-style-type: none;
+}
+
 /* Creat Work Page */
 
 .admin-forms {
