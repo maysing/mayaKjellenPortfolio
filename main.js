@@ -5,7 +5,8 @@ const db = new sqLite3.Database("mayaKjellenPortfolioDb.db");
 const expressSession = require("express-session");
 const app = express();
 const bcrypt = require("bcrypt");
-const SQLiteStore = connectSqlite3 (expressSession);
+const connectSqlite3 = require("connect-sqlite3");
+const SQLiteStore = connectSqlite3(expressSession);
 
 //login info
 const adminUsername = "maya";
@@ -14,7 +15,7 @@ const hashedadminPassword =
 
 app.use(
   expressSession({
-    store: new SQLiteStore ({db: "session-db.db"}),
+    store: new SQLiteStore({ db: "session-db.db" }),
     saveUninitialized: false,
     resave: false,
     secret: "fsecufeoue",
@@ -109,6 +110,7 @@ app.post("/", function (request, response) {
 
 app.post("/delete-guest/:id", function (request, response) {
   const id = request.params.id;
+  const notLoggedIn = [];
 
   const query = `DELETE FROM guests WHERE id = ?`;
 
@@ -116,11 +118,25 @@ app.post("/delete-guest/:id", function (request, response) {
     db.run(query, id, function (error) {
       response.redirect("/");
     });
+  } else {
+    const query = "SELECT * FROM guests ORDER BY id";
+    db.all(query, function (error, guests) {
+      
+      notLoggedIn.push("Not logged in");
+
+      const model = {
+        guests,
+        notLoggedIn,
+      };
+
+      response.render("start.hbs", model);
+    });
   }
 });
 
 app.get("/update-guest/:id", function (request, response) {
   const id = request.params.id;
+  const notLoggedIn = [];
 
   const query = "SELECT * FROM guests WHERE id = ?";
 
@@ -132,6 +148,19 @@ app.get("/update-guest/:id", function (request, response) {
         guest: guests,
       };
       response.render("updateGuest.hbs", model);
+    });
+  } else {
+    const query = "SELECT * FROM guests ORDER BY id";
+    db.all(query, function (error, guests) {
+      
+      notLoggedIn.push("Not logged in");
+
+      const model = {
+        guests,
+        notLoggedIn,
+      };
+
+      response.render("start.hbs", model);
     });
   }
 });
@@ -327,6 +356,7 @@ app.get("/login", function (request, response) {
 app.post("/login", function (request, response) {
   const enteredUsername = request.body.username;
   const enteredPassword = request.body.password;
+  const failedToLogin = false;
 
   if (enteredUsername == adminUsername) {
     bcrypt.compare(
@@ -337,11 +367,7 @@ app.post("/login", function (request, response) {
           request.session.isLoggedIn = true;
           response.redirect("/");
         } else {
-          const model = {
-            failedToLogin,
-          };
           response.redirect("/login");
-          response.render("login.hbs", model);
         }
       }
     );
@@ -352,6 +378,7 @@ app.post("/login", function (request, response) {
     response.render("login.hbs", model);
   }
 });
+
 
 //Review Page
 
@@ -365,6 +392,7 @@ app.get("/reviews", function (request, response) {
       const model = {
         reviews,
       };
+
       response.render("reviews.hbs", model);
     }
   });
@@ -391,26 +419,48 @@ app.post("/reviews", function (request, response) {
       response.redirect("/reviews");
     });
   } else {
-    const model = {
-      reviewInputErrors,
-    };
-    response.render("reviews.hbs", model);
+    const query = "SELECT * FROM reviews ORDER BY id";
+    db.all(query, function (error, reviews) {
+      
+      const model = {
+        reviews,
+        reviewInputErrors,
+      };
+
+      response.render("reviews.hbs", model);
+    });
   }
 });
 
 app.get("/update-review/:id", function (request, response) {
   const id = request.params.id;
+  const notLoggedIn = [];
 
   const query = "SELECT * FROM reviews WHERE id = ?";
 
   const values = [id];
 
-  db.get(query, values, function (error, reviews) {
-    const model = {
-      reviews,
-    };
-    response.render("updateReview.hbs", model);
-  });
+  if (request.session.isLoggedIn == true) {
+    db.get(query, values, function (error, reviews) {
+      const model = {
+        reviews,
+      };
+      response.render("updateReview.hbs", model);
+    });
+  } else {
+    const query = "SELECT * FROM reviews ORDER BY id";
+    db.all(query, function (error, reviews) {
+      
+      notLoggedIn.push("Not logged in");
+
+      const model = {
+        reviews,
+        notLoggedIn,
+      };
+
+      response.render("reviews.hbs", model);
+    });
+  }
 });
 
 app.post("/update-review/:id", function (request, response) {
@@ -431,19 +481,35 @@ app.post("/update-review/:id", function (request, response) {
 
 app.post("/delete-review/:id", function (request, response) {
   const id = request.params.id;
+  const notLoggedIn = [];
   const query = `DELETE FROM reviews WHERE id = ?`;
 
   if (request.session.isLoggedIn == true) {
     db.run(query, id, function (error) {
       response.redirect("/reviews");
     });
+  } else {
+    const query = "SELECT * FROM reviews ORDER BY id";
+    db.all(query, function (error, reviews) {
+      
+      notLoggedIn.push("Not logged in");
+
+      const model = {
+        reviews,
+        notLoggedIn,
+      };
+
+      response.render("reviews.hbs", model);
+    });
   }
 });
 
 app.get("/logout", function (request, response) {
-  request.session.isLoggedIn = false;
-  response.redirect("/login");
+  response.render("logout.hbs");
 });
 
-
+app.post("/logout", function (request, response) {
+    request.session.isLoggedIn = false;
+    response.redirect("/login");
+})
 app.listen(8080);

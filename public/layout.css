@@ -270,7 +270,7 @@ p {
 
 #not-logged-in-error-messages {
   color: red;
-  margin-left: 200px;
+  margin-left: 100px;
   margin-top: 50px;
   list-style-type: none;
 }
@@ -289,7 +289,7 @@ p {
   margin-left: 733px;
 }
 
-/* Login page */
+/* Login/logout pages */
 
 #username {
   margin-bottom: 20px;
@@ -305,4 +305,16 @@ p {
 #login-fail {
   color: red;
   font-style: italic;
+}
+
+#logout-button {
+  margin-top: 100px;
+  margin-right: 80px;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  background-color: rgb(217, 236, 255);
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
 }
