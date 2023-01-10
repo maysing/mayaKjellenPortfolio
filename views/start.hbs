@@ -13,6 +13,16 @@
   </div>
 
   <div class="content">
+    
+    {{#if notLoggedIn.length}}
+      <ul id="guest-error-messages">
+        {{#each notLoggedIn}}
+          <li>{{this}}</li>
+        {{/each}}
+      </ul>
+    {{/if}}
+
+
     <form id="guestbook-form" action="" method="post">
 
       <h2>Guestbook</h2>
@@ -24,28 +34,47 @@
 
     </form>
 
+    <p id="recent-guests">Recent guests:</p>
+
+{{#if session.isLoggedIn}}
     {{#if guests.length}}
 
       <ul id="guest-list">
         {{#each guests}}
           <li>
             {{name}}
+
+        
             <form
               class="inline-form"
               action="/delete-guest/{{id}}"
-              method="POST"
-            >
+              method="POST">
+
+             
               <input class="form-buttons" type="submit" value="Delete" />
+              
             </form>
 
             <a href="/update-guest/{{id}}" class="form-buttons">Edit</a>
-
+     
           </li>
         {{/each}}
       </ul>
-
     {{/if}}
 
+    {{else}}
+
+    <ul id="guest-list">
+        {{#each guests}}
+          <li>
+            {{name}}
+            </li>
+            {{/each}}
+  {{/if}}
+
+
+
+ 
     {{#if guestInputErrors.length}}
       <ul>
         {{#each guestInputErrors}}
@@ -54,13 +83,6 @@
       </ul>
     {{/if}}
 
-    {{#if notLoggedIn.length}}
-      <ul id="guest-error-messages">
-        {{#each notLoggedIn}}
-          <li>{{this}}</li>
-        {{/each}}
-      </ul>
-    {{/if}}
-
+    
   </div>
 </div>

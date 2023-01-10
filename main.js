@@ -121,7 +121,6 @@ app.post("/delete-guest/:id", function (request, response) {
   } else {
     const query = "SELECT * FROM guests ORDER BY id";
     db.all(query, function (error, guests) {
-      
       notLoggedIn.push("Not logged in");
 
       const model = {
@@ -152,7 +151,6 @@ app.get("/update-guest/:id", function (request, response) {
   } else {
     const query = "SELECT * FROM guests ORDER BY id";
     db.all(query, function (error, guests) {
-      
       notLoggedIn.push("Not logged in");
 
       const model = {
@@ -232,9 +230,15 @@ app.post("/createWork", function (request, response) {
       }
     });
   } else {
+
+    const works = [];
+    
     const model = {
       inputErrors,
+      works,
     };
+
+    works.push(works)
 
     if (!request.session.isLoggedIn) {
       inputErrors.push("Not logged in");
@@ -302,6 +306,7 @@ app.get("/update-work/:id", function (request, response) {
 
   if (request.session.isLoggedIn == true) {
     db.get(query, values, function (error, works) {
+      
       const model = {
         works,
       };
@@ -379,7 +384,6 @@ app.post("/login", function (request, response) {
   }
 });
 
-
 //Review Page
 
 app.get("/reviews", function (request, response) {
@@ -421,7 +425,6 @@ app.post("/reviews", function (request, response) {
   } else {
     const query = "SELECT * FROM reviews ORDER BY id";
     db.all(query, function (error, reviews) {
-      
       const model = {
         reviews,
         reviewInputErrors,
@@ -450,7 +453,6 @@ app.get("/update-review/:id", function (request, response) {
   } else {
     const query = "SELECT * FROM reviews ORDER BY id";
     db.all(query, function (error, reviews) {
-      
       notLoggedIn.push("Not logged in");
 
       const model = {
@@ -491,7 +493,6 @@ app.post("/delete-review/:id", function (request, response) {
   } else {
     const query = "SELECT * FROM reviews ORDER BY id";
     db.all(query, function (error, reviews) {
-      
       notLoggedIn.push("Not logged in");
 
       const model = {
@@ -509,7 +510,7 @@ app.get("/logout", function (request, response) {
 });
 
 app.post("/logout", function (request, response) {
-    request.session.isLoggedIn = false;
-    response.redirect("/login");
-})
+  request.session.isLoggedIn = false;
+  response.redirect("/login");
+});
 app.listen(8080);

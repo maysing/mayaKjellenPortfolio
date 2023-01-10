@@ -14,7 +14,8 @@
 
     </form>
   </div>
-
+  
+  
   {{#if reviewInputErrors.length}}
     <ul id="review-error-messages">
       {{#each reviewInputErrors}}
@@ -25,6 +26,7 @@
 
   <div class="sidebar">
 
+{{#if session.isLoggedIn}}
     {{#if reviews.length}}
 
       <ul id="reviews-list">
@@ -49,12 +51,17 @@
       </ul>
     {{/if}}
 
-    {{#if notLoggedIn.length}}
-      <ul id="not-logged-in-error-messages">
-        {{#each notLoggedIn}}
-          <li>{{this}}</li>
+    {{else}}
+    {{#if reviews.length}}
+
+      <ul id="reviews-list">
+        {{#each reviews}}
+          <li>
+            {{name}}:
+            {{comment}}
+          </li>
         {{/each}}
-      </ul>
-    {{/if}}
+  {{/if}}
+  {{/if}}
   </div>
 </div>
