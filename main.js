@@ -37,6 +37,7 @@ app.use(
     extended: false,
   })
 );
+
 //Create databases
 db.run(`
     CREATE TABLE IF NOT EXISTS works(
@@ -197,7 +198,9 @@ app.get("/contact", function (request, response) {
 });
 //Create Work
 app.get("/createWork", function (request, response) {
-  response.render("createWork.hbs");
+  if (request.session.isLoggedIn == true) {
+    response.render("createWork.hbs");
+  }
 });
 app.post("/createWork", function (request, response) {
   const title = request.body.title;
@@ -230,19 +233,10 @@ app.post("/createWork", function (request, response) {
       }
     });
   } else {
-
-    const works = [];
-    
     const model = {
       inputErrors,
-      works,
     };
 
-    works.push(works)
-
-    if (!request.session.isLoggedIn) {
-      inputErrors.push("Not logged in");
-    }
     response.render("createWork.hbs", model);
   }
 });
@@ -306,7 +300,6 @@ app.get("/update-work/:id", function (request, response) {
 
   if (request.session.isLoggedIn == true) {
     db.get(query, values, function (error, works) {
-      
       const model = {
         works,
       };
@@ -349,6 +342,7 @@ app.post("/update-work/:id", function (request, response) {
     const model = {
       inputErrors,
     };
+
     response.render("updateWork.hbs", model);
   }
 });
