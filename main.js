@@ -224,17 +224,19 @@ app.post("/createWork", function (request, response) {
   if (inputErrors.length == 0 && request.session.isLoggedIn == true) {
     const query =
       "INSERT INTO works (title, link, course, year) VALUES (?, ?, ?, ?)";
+
     const values = [title, link, course, year];
-    db.run(query, values, function (error) {
-      if (error) {
-        inputErrors.push("Internal error");
-      } else {
+
+    db.run(query, values, function (error) {    
         response.redirect("/works");
-      }
     });
   } else {
     const model = {
       inputErrors,
+      title,
+      link,
+      course, 
+      year,
     };
 
     response.render("createWork.hbs", model);
