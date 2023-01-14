@@ -120,17 +120,10 @@ app.post("/delete-guest/:id", function (request, response) {
       response.redirect("/");
     });
   } else {
-    const query = "SELECT * FROM guests ORDER BY id";
-    db.all(query, function (error, guests) {
-      notLoggedIn.push("Not logged in");
-
       const model = {
-        guests,
         notLoggedIn,
       };
-
       response.render("start.hbs", model);
-    });
   }
 });
 
@@ -150,17 +143,10 @@ app.get("/update-guest/:id", function (request, response) {
       response.render("updateGuest.hbs", model);
     });
   } else {
-    const query = "SELECT * FROM guests ORDER BY id";
-    db.all(query, function (error, guests) {
-      notLoggedIn.push("Not logged in");
-
       const model = {
-        guests,
         notLoggedIn,
       };
-
       response.render("start.hbs", model);
-    });
   }
 });
 
@@ -420,10 +406,14 @@ app.post("/reviews", function (request, response) {
     });
   } else {
     const query = "SELECT * FROM reviews ORDER BY id";
+    const values = [name, comment];
     db.all(query, function (error, reviews) {
+
       const model = {
         reviews,
         reviewInputErrors,
+        name,
+        comment,
       };
 
       response.render("reviews.hbs", model);
