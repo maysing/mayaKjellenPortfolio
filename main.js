@@ -15,7 +15,7 @@ const hashedadminPassword =
 
 app.use(
   expressSession({
-    
+    store: new SQLiteStore({ db: "session-db.db" }),
     saveUninitialized: false,
     resave: false,
     secret: "fsecufeoue",
