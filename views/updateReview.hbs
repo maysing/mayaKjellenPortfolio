@@ -20,7 +20,7 @@
 
 </form>
 
- {{#if reviewInputErrors.length}}
+{{#if reviewInputErrors.length}}
   <ul id="error-display">
     {{#each reviewInputErrors}}
       <li>{{this}}</li>
@@ -29,9 +29,9 @@
 {{/if}}
 
 {{#if notLoggedIn.length}}
-      <ul id="guest-error-messages">
-        {{#each notLoggedIn}}
-          <li>{{this}}</li>
-        {{/each}}
-      </ul>
-    {{/if}}
+  <ul id="guest-error-messages">
+    {{#each notLoggedIn}}
+      <li>{{this}}</li>
+    {{/each}}
+  </ul>
+{{/if}}
