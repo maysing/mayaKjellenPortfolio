@@ -15,7 +15,7 @@ const hashedadminPassword =
 
 app.use(
   expressSession({
-    store: new SQLiteStore({ db: "session-db.db" }),
+    
     saveUninitialized: false,
     resave: false,
     secret: "fsecufeoue",
@@ -102,18 +102,15 @@ app.post("/", function (request, response) {
       }
     });
   } else {
-
     const query = "SELECT * FROM guests ORDER BY id";
     db.all(query, function (error, guests) {
-
       const model = {
-      guestInputErrors,
-      guests,
-    };
-    
-    response.render("start.hbs", model);
+        guestInputErrors,
+        guests,
+      };
+
+      response.render("start.hbs", model);
     });
-    
   }
 });
 
@@ -128,10 +125,10 @@ app.post("/delete-guest/:id", function (request, response) {
       response.redirect("/");
     });
   } else {
-      const model = {
-        notLoggedIn,
-      };
-      response.render("start.hbs", model);
+    const model = {
+      notLoggedIn,
+    };
+    response.render("start.hbs", model);
   }
 });
 
@@ -151,10 +148,10 @@ app.get("/update-guest/:id", function (request, response) {
       response.render("updateGuest.hbs", model);
     });
   } else {
-      const model = {
-        notLoggedIn,
-      };
-      response.render("start.hbs", model);
+    const model = {
+      notLoggedIn,
+    };
+    response.render("start.hbs", model);
   }
 });
 
@@ -221,15 +218,15 @@ app.post("/createWork", function (request, response) {
 
     const values = [title, link, course, year];
 
-    db.run(query, values, function (error) {    
-        response.redirect("/works");
+    db.run(query, values, function (error) {
+      response.redirect("/works");
     });
   } else {
     const model = {
       inputErrors,
       title,
       link,
-      course, 
+      course,
       year,
     };
 
@@ -416,7 +413,6 @@ app.post("/reviews", function (request, response) {
     const query = "SELECT * FROM reviews ORDER BY id";
     const values = [name, comment];
     db.all(query, function (error, reviews) {
-
       const model = {
         reviews,
         reviewInputErrors,
