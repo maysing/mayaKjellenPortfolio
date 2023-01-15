@@ -102,10 +102,18 @@ app.post("/", function (request, response) {
       }
     });
   } else {
-    const model = {
+
+    const query = "SELECT * FROM guests ORDER BY id";
+    db.all(query, function (error, guests) {
+
+      const model = {
       guestInputErrors,
+      guests,
     };
+    
     response.render("start.hbs", model);
+    });
+    
   }
 });
 

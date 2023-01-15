@@ -34,7 +34,17 @@
 
     </form>
 
+    
+    {{#if guestInputErrors.length}}
+      <ul>
+        {{#each guestInputErrors}}
+          <li id="guest-error-messages">{{this}}</li>
+        {{/each}}
+      </ul>
+    {{/if}}
+
     <p id="recent-guests">Recent guests:</p>
+    
 
 {{#if session.isLoggedIn}}
     {{#if guests.length}}
@@ -70,19 +80,6 @@
             {{name}}
             </li>
             {{/each}}
-  {{/if}}
-
-
-
- 
-    {{#if guestInputErrors.length}}
-      <ul>
-        {{#each guestInputErrors}}
-          <li id="guest-error-messages">{{this}}</li>
-        {{/each}}
-      </ul>
-    {{/if}}
-
-    
+  {{/if}}    
   </div>
 </div>
