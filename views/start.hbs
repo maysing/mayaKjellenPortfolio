@@ -14,13 +14,13 @@
 
   <div class="content">
     
-    {{#if notLoggedIn.length}}
-      <ul id="guest-error-messages">
-        {{#each notLoggedIn}}
-          <li>{{this}}</li>
-        {{/each}}
-      </ul>
-    {{/if}}
+  {{#if notLoggedInError.length}}
+  <ul>
+    {{#each notLoggedInError}}
+    <li id="guest-error-messages">{{this}}</li>
+    {{/each}}
+  </ul>
+  {{/if}}
 
 
     <form id="guestbook-form" action="" method="post">

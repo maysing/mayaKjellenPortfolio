@@ -97,7 +97,6 @@ app.post("/", function (request, response) {
   if (guestInputErrors == 0) {
     db.run(query, values, function (error) {
       if (error) {
-        guestInputErrors.push("Internal error");
         response.redirect("/error");
       } else {
         response.redirect("/");
@@ -144,6 +143,7 @@ app.get("/update-guest/:id", function (request, response) {
   const id = request.params.id;
   const query = "SELECT * FROM guests WHERE id = ?";
   const values = [id];
+  const notLoggedInError = [];
 
   if (request.session.isLoggedIn == true) {
     db.get(query, values, function (error, guests) {
@@ -157,8 +157,10 @@ app.get("/update-guest/:id", function (request, response) {
       }
     });
   } else {
+    notLoggedInError.push("You are not logged in");
+
     const model = {
-      notLoggedIn,
+      notLoggedInError,
     };
     response.render("start.hbs", model);
   }
@@ -169,7 +171,7 @@ app.post("/update-guest/:id", function (request, response) {
   const name = request.body.name;
   const values = [name, id];
   const guestInputErrors = [];
-  const notLoggedinError = [];
+  const notLoggedInError = [];
 
   if (name.length == 0) {
     guestInputErrors.push("Must enter a name");
@@ -185,14 +187,20 @@ app.post("/update-guest/:id", function (request, response) {
         response.redirect("/");
       }
     });
+  }
+
+  if (!request.session.isLoggedIn) {
+    notLoggedInError.push("You are not logged in");
+
+    const model = {
+      notLoggedInError,
+    };
+    response.render("updateGuest.hbs", model);
+
   } else {
     const model = {
       guestInputErrors,
-      notLoggedinError,
     };
-
-    notLoggedinError.push("You are not logged in");
-
     response.render("updateGuest.hbs", model);
   }
 });
@@ -206,12 +214,14 @@ app.get("/contact", function (request, response) {
   response.render("contact.hbs");
 });
 //Create Work
-app.get("/createWork", function (request, response) {
+app.get("/create-work", function (request, response) {
   if (request.session.isLoggedIn == true) {
     response.render("createWork.hbs");
+  } else {
+    response.render("unauthorized.hbs");
   }
 });
-app.post("/createWork", function (request, response) {
+app.post("/create-work", function (request, response) {
   const title = request.body.title;
   const link = request.body.link;
   const course = request.body.course;
@@ -271,11 +281,17 @@ app.get("/works", function (request, response) {
   });
 });
 
-//Error Page
+//Error Page (for db errors)
 
 app.get("/error", function (request, response) {
   response.render("error.hbs");
 });
+
+//Unauthorized error page
+app.get("/unauthorized", function (request, response) {
+  response.render("unauthorized.hbs");
+});
+
 
 //Individual Work Page
 app.get("/works/:id", function (request, response) {
