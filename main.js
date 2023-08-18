@@ -94,7 +94,7 @@ app.post("/", function (request, response) {
     guestInputErrors.push("Must enter a name");
   }
 
-  if (guestInputErrors == 0) {
+  if (guestInputErrors.length == 0) {
     db.run(query, values, function (error) {
       if (error) {
         response.redirect("/error");
@@ -196,7 +196,6 @@ app.post("/update-guest/:id", function (request, response) {
       notLoggedInError,
     };
     response.render("updateGuest.hbs", model);
-
   } else {
     const model = {
       guestInputErrors,
@@ -292,7 +291,6 @@ app.get("/unauthorized", function (request, response) {
   response.render("unauthorized.hbs");
 });
 
-
 //Individual Work Page
 app.get("/works/:id", function (request, response) {
   const id = request.params.id;
@@ -349,6 +347,8 @@ app.get("/update-work/:id", function (request, response) {
         response.render("updateWork.hbs", model);
       }
     });
+  } else {
+    response.redirect("/unauthorized");
   }
 });
 
@@ -361,6 +361,7 @@ app.post("/update-work/:id", function (request, response) {
   const year = request.body.year;
 
   const inputErrors = [];
+  const notLoggedInError = [];
 
   if (title.length == 0) {
     inputErrors.push("Title field can not be empty");
@@ -386,11 +387,17 @@ app.post("/update-work/:id", function (request, response) {
         response.redirect("/works");
       }
     });
+  }
+  if (!request.session.isLoggedIn) {
+    const model = {
+      notLoggedInError,
+    };
+    notLoggedInError.push("You are not logged in");
+    response.render("updateWork.hbs", model);
   } else {
     const model = {
       inputErrors,
     };
-
     response.render("updateWork.hbs", model);
   }
 });
@@ -494,7 +501,7 @@ app.post("/reviews", function (request, response) {
 
 app.get("/update-review/:id", function (request, response) {
   const id = request.params.id;
-  const notLoggedIn = [];
+  const notLoggedInError = [];
 
   const query = "SELECT * FROM reviews WHERE id = ?";
 
@@ -512,21 +519,7 @@ app.get("/update-review/:id", function (request, response) {
       }
     });
   } else {
-    const query = "SELECT * FROM reviews ORDER BY id";
-    db.all(query, function (error, reviews) {
-      if (error) {
-        response.redirect("/error");
-      } else {
-        notLoggedIn.push("Not logged in");
-
-        const model = {
-          reviews,
-          notLoggedIn,
-        };
-
-        response.render("reviews.hbs", model);
-      }
-    });
+    response.redirect("/unauthorized");
   }
 });
 
@@ -547,12 +540,13 @@ app.post("/update-review/:id", function (request, response) {
         response.redirect("/reviews");
       }
     });
+  } else {
+    response.redirect("/unauthorized");
   }
 });
 
 app.post("/delete-review/:id", function (request, response) {
   const id = request.params.id;
-  const notLoggedIn = [];
   const query = `DELETE FROM reviews WHERE id = ?`;
 
   if (request.session.isLoggedIn == true) {
@@ -569,14 +563,7 @@ app.post("/delete-review/:id", function (request, response) {
       if (error) {
         response.redirect("/error");
       } else {
-        notLoggedIn.push("Not logged in");
-
-        const model = {
-          reviews,
-          notLoggedIn,
-        };
-
-        response.render("reviews.hbs", model);
+        response.redirect("/unauthorized");
       }
     });
   }

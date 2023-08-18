@@ -8,6 +8,14 @@
   </ul>
 {{/if}}
 
+{{#if notLoggedInError.length}}
+  <ul>
+    {{#each notLoggedInError}}
+    <li id="error-display">{{this}}</li>
+    {{/each}}
+  </ul>
+  {{/if}}
+
 <div class="bg-secondary">
   <div class="divider">
   </div>
