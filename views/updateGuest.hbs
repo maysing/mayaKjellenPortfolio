@@ -16,3 +16,11 @@
         {{/each}}
       </ul>
     {{/if}}
+
+  {{#if notLoggedinError.length}}
+  <ul>
+    {{#each notLoggedinError}}
+    <li id="guest-error-messages">{{this}}</li>
+    {{/each}}
+  </ul>
+  {{/if}}

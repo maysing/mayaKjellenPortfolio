@@ -70,6 +70,7 @@ app.get("/", function (request, response) {
   db.all(query, function (error, guests) {
     if (error) {
       guestInputErrors.push("Internal error");
+      response.redirect("/error");
     } else {
       const model = {
         guests,
@@ -97,6 +98,7 @@ app.post("/", function (request, response) {
     db.run(query, values, function (error) {
       if (error) {
         guestInputErrors.push("Internal error");
+        response.redirect("/error");
       } else {
         response.redirect("/");
       }
@@ -104,25 +106,31 @@ app.post("/", function (request, response) {
   } else {
     const query = "SELECT * FROM guests ORDER BY id";
     db.all(query, function (error, guests) {
-      const model = {
-        guestInputErrors,
-        guests,
-      };
+      if (error) {
+        response.redirect("/error");
+      } else {
+        const model = {
+          guestInputErrors,
+          guests,
+        };
 
-      response.render("start.hbs", model);
+        response.render("start.hbs", model);
+      }
     });
   }
 });
 
 app.post("/delete-guest/:id", function (request, response) {
   const id = request.params.id;
-  const notLoggedIn = [];
-
   const query = `DELETE FROM guests WHERE id = ?`;
 
   if (request.session.isLoggedIn == true) {
     db.run(query, id, function (error) {
-      response.redirect("/");
+      if (error) {
+        response.redirect("/error");
+      } else {
+        response.redirect("/");
+      }
     });
   } else {
     const model = {
@@ -134,18 +142,19 @@ app.post("/delete-guest/:id", function (request, response) {
 
 app.get("/update-guest/:id", function (request, response) {
   const id = request.params.id;
-  const notLoggedIn = [];
-
   const query = "SELECT * FROM guests WHERE id = ?";
-
   const values = [id];
 
   if (request.session.isLoggedIn == true) {
     db.get(query, values, function (error, guests) {
-      const model = {
-        guest: guests,
-      };
-      response.render("updateGuest.hbs", model);
+      if (error) {
+        response.redirect("/error");
+      } else {
+        const model = {
+          guest: guests,
+        };
+        response.render("updateGuest.hbs", model);
+      }
     });
   } else {
     const model = {
@@ -160,6 +169,7 @@ app.post("/update-guest/:id", function (request, response) {
   const name = request.body.name;
   const values = [name, id];
   const guestInputErrors = [];
+  const notLoggedinError = [];
 
   if (name.length == 0) {
     guestInputErrors.push("Must enter a name");
@@ -169,12 +179,20 @@ app.post("/update-guest/:id", function (request, response) {
 
   if (guestInputErrors == 0 && request.session.isLoggedIn == true) {
     db.run(query, values, function (error) {
-      response.redirect("/");
+      if (error) {
+        response.redirect("/error");
+      } else {
+        response.redirect("/");
+      }
     });
   } else {
     const model = {
       guestInputErrors,
+      notLoggedinError,
     };
+
+    notLoggedinError.push("You are not logged in");
+
     response.render("updateGuest.hbs", model);
   }
 });
@@ -219,7 +237,11 @@ app.post("/createWork", function (request, response) {
     const values = [title, link, course, year];
 
     db.run(query, values, function (error) {
-      response.redirect("/works");
+      if (error) {
+        response.redirect("/error");
+      } else {
+        response.redirect("/works");
+      }
     });
   } else {
     const model = {
@@ -237,10 +259,9 @@ app.post("/createWork", function (request, response) {
 //Works Page
 app.get("/works", function (request, response) {
   const query = "SELECT * FROM works ORDER BY id";
-  const inputErrors = [];
   db.all(query, function (error, works) {
     if (error) {
-      inputErrors.push("Internal error");
+      response.redirect("/error");
     } else {
       const model = {
         works,
@@ -248,6 +269,12 @@ app.get("/works", function (request, response) {
       response.render("works.hbs", model);
     }
   });
+});
+
+//Error Page
+
+app.get("/error", function (request, response) {
+  response.render("error.hbs");
 });
 
 //Individual Work Page
@@ -259,11 +286,11 @@ app.get("/works/:id", function (request, response) {
   db.get(query, values, function (error, work) {
     if (error) {
       inputErrors.push("Internal error");
+      response.redirect("/error");
     } else {
       const model = {
         work: work,
       };
-
       response.render("work.hbs", model);
     }
   });
@@ -277,7 +304,11 @@ app.post("/delete-work/:id", function (request, response) {
   const query = `DELETE FROM works WHERE id = ?`;
   if (request.session.isLoggedIn == true) {
     db.run(query, id, function (error) {
-      response.redirect("/works");
+      if (error) {
+        response.redirect("/error");
+      } else {
+        response.redirect("/works");
+      }
     });
   }
 });
@@ -293,10 +324,14 @@ app.get("/update-work/:id", function (request, response) {
 
   if (request.session.isLoggedIn == true) {
     db.get(query, values, function (error, works) {
-      const model = {
-        works,
-      };
-      response.render("updateWork.hbs", model);
+      if (error) {
+        response.redirect("/error");
+      } else {
+        const model = {
+          works,
+        };
+        response.render("updateWork.hbs", model);
+      }
     });
   }
 });
@@ -329,7 +364,11 @@ app.post("/update-work/:id", function (request, response) {
 
   if (inputErrors.length == 0 && request.session.isLoggedIn == true) {
     db.run(query, values, function (error) {
-      response.redirect("/works");
+      if (error) {
+        response.redirect("/error");
+      } else {
+        response.redirect("/works");
+      }
     });
   } else {
     const model = {
@@ -348,18 +387,21 @@ app.get("/login", function (request, response) {
 app.post("/login", function (request, response) {
   const enteredUsername = request.body.username;
   const enteredPassword = request.body.password;
-  const failedToLogin = false;
 
   if (enteredUsername == adminUsername) {
     bcrypt.compare(
       enteredPassword,
       hashedadminPassword,
       function (error, passwordIsCorrect) {
-        if (passwordIsCorrect) {
-          request.session.isLoggedIn = true;
-          response.redirect("/");
+        if (error) {
+          response.redirect("/error");
         } else {
-          response.redirect("/login");
+          if (passwordIsCorrect) {
+            request.session.isLoggedIn = true;
+            response.redirect("/");
+          } else {
+            response.redirect("/login");
+          }
         }
       }
     );
@@ -379,6 +421,7 @@ app.get("/reviews", function (request, response) {
   db.all(query, function (error, reviews) {
     if (error) {
       inputErrors.push("Internal error");
+      response.redirect("/error");
     } else {
       const model = {
         reviews,
@@ -407,20 +450,28 @@ app.post("/reviews", function (request, response) {
 
   if (reviewInputErrors.length == 0) {
     db.run(query, values, function (error) {
-      response.redirect("/reviews");
+      if (error) {
+        response.redirect("/error");
+      } else {
+        response.redirect("/reviews");
+      }
     });
   } else {
     const query = "SELECT * FROM reviews ORDER BY id";
     const values = [name, comment];
     db.all(query, function (error, reviews) {
-      const model = {
-        reviews,
-        reviewInputErrors,
-        name,
-        comment,
-      };
+      if (error) {
+        response.redirect("/error");
+      } else {
+        const model = {
+          reviews,
+          reviewInputErrors,
+          name,
+          comment,
+        };
 
-      response.render("reviews.hbs", model);
+        response.render("reviews.hbs", model);
+      }
     });
   }
 });
@@ -435,22 +486,30 @@ app.get("/update-review/:id", function (request, response) {
 
   if (request.session.isLoggedIn == true) {
     db.get(query, values, function (error, reviews) {
-      const model = {
-        reviews,
-      };
-      response.render("updateReview.hbs", model);
+      if (error) {
+        response.redirect("/error");
+      } else {
+        const model = {
+          reviews,
+        };
+        response.render("updateReview.hbs", model);
+      }
     });
   } else {
     const query = "SELECT * FROM reviews ORDER BY id";
     db.all(query, function (error, reviews) {
-      notLoggedIn.push("Not logged in");
+      if (error) {
+        response.redirect("/error");
+      } else {
+        notLoggedIn.push("Not logged in");
 
-      const model = {
-        reviews,
-        notLoggedIn,
-      };
+        const model = {
+          reviews,
+          notLoggedIn,
+        };
 
-      response.render("reviews.hbs", model);
+        response.render("reviews.hbs", model);
+      }
     });
   }
 });
@@ -466,7 +525,11 @@ app.post("/update-review/:id", function (request, response) {
 
   if (request.session.isLoggedIn == true) {
     db.run(query, values, function (error) {
-      response.redirect("/reviews");
+      if (error) {
+        response.redirect("/error");
+      } else {
+        response.redirect("/reviews");
+      }
     });
   }
 });
@@ -478,19 +541,27 @@ app.post("/delete-review/:id", function (request, response) {
 
   if (request.session.isLoggedIn == true) {
     db.run(query, id, function (error) {
-      response.redirect("/reviews");
+      if (error) {
+        response.redirect("/error");
+      } else {
+        response.redirect("/reviews");
+      }
     });
   } else {
     const query = "SELECT * FROM reviews ORDER BY id";
     db.all(query, function (error, reviews) {
-      notLoggedIn.push("Not logged in");
+      if (error) {
+        response.redirect("/error");
+      } else {
+        notLoggedIn.push("Not logged in");
 
-      const model = {
-        reviews,
-        notLoggedIn,
-      };
+        const model = {
+          reviews,
+          notLoggedIn,
+        };
 
-      response.render("reviews.hbs", model);
+        response.render("reviews.hbs", model);
+      }
     });
   }
 });
@@ -503,4 +574,5 @@ app.post("/logout", function (request, response) {
   request.session.isLoggedIn = false;
   response.redirect("/login");
 });
+
 app.listen(8080);

@@ -332,3 +332,21 @@ p {
   margin-top: 80px;
   margin-left: 70px;
 }
+
+/* Error Page */
+
+#error-headline {
+  color: red;
+}
+
+#error-button {
+  margin-left: 687px;
+  margin-top: 20px;
+  padding-right: 7px;
+  padding-left: 7px;
+  padding-bottom: 2px;
+  background-color: rgb(224, 224, 224);
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
