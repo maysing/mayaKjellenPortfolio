@@ -69,7 +69,6 @@ app.get("/", function (request, response) {
 
   db.all(query, function (error, guests) {
     if (error) {
-      guestInputErrors.push("Internal error");
       response.redirect("/error");
     } else {
       const model = {
@@ -122,6 +121,7 @@ app.post("/", function (request, response) {
 app.post("/delete-guest/:id", function (request, response) {
   const id = request.params.id;
   const query = `DELETE FROM guests WHERE id = ?`;
+  const notLoggedInError = [];
 
   if (request.session.isLoggedIn == true) {
     db.run(query, id, function (error) {
@@ -132,8 +132,10 @@ app.post("/delete-guest/:id", function (request, response) {
       }
     });
   } else {
+    notLoggedInError.push("You are not logged in");
+
     const model = {
-      notLoggedIn,
+      notLoggedInError,
     };
     response.render("start.hbs", model);
   }
@@ -179,7 +181,7 @@ app.post("/update-guest/:id", function (request, response) {
 
   const query = `UPDATE guests SET name = ? WHERE id = ?`;
 
-  if (guestInputErrors == 0 && request.session.isLoggedIn == true) {
+  if (guestInputErrors.length == 0 && request.session.isLoggedIn == true) {
     db.run(query, values, function (error) {
       if (error) {
         response.redirect("/error");
@@ -280,17 +282,6 @@ app.get("/works", function (request, response) {
   });
 });
 
-//Error Page (for db errors)
-
-app.get("/error", function (request, response) {
-  response.render("error.hbs");
-});
-
-//Unauthorized error page
-app.get("/unauthorized", function (request, response) {
-  response.render("unauthorized.hbs");
-});
-
 //Individual Work Page
 app.get("/works/:id", function (request, response) {
   const id = request.params.id;
@@ -314,8 +305,8 @@ app.get("/works/:id", function (request, response) {
 
 app.post("/delete-work/:id", function (request, response) {
   const id = request.params.id;
-
   const query = `DELETE FROM works WHERE id = ?`;
+
   if (request.session.isLoggedIn == true) {
     db.run(query, id, function (error) {
       if (error) {
@@ -324,6 +315,8 @@ app.post("/delete-work/:id", function (request, response) {
         response.redirect("/works");
       }
     });
+  } else {
+    response.redirect("/unauthorized");
   }
 });
 
@@ -569,6 +562,18 @@ app.post("/delete-review/:id", function (request, response) {
   }
 });
 
+//Error Page (for db errors)
+
+app.get("/error", function (request, response) {
+  response.render("error.hbs");
+});
+
+//Unauthorized error page
+app.get("/unauthorized", function (request, response) {
+  response.render("unauthorized.hbs");
+});
+
+//Logout
 app.get("/logout", function (request, response) {
   response.render("logout.hbs");
 });

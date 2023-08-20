@@ -6,20 +6,20 @@
 }
 
 header {
-  background-color: rgb(217, 236, 255);
-  height: 80px;
+  background-color: rgb(233, 223, 236);
+  height: 90px;
   padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .navbar-section {
-  padding-top: 10px;
-  padding-left: 600px;
+  padding-top: 20px;
+  padding-left: 500px;
 }
 
 #logo {
-  padding-left: 20px;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif;
+  margin-left: 85px;
+  padding-bottom: 10px;
 }
 
 #admin-section {
@@ -56,9 +56,9 @@ footer {
 }
 
 #footer-text {
-  width: 150px;
+  width: 160px;
   color: rgb(180, 217, 249);
-  margin-left: 100px;
+  margin-left: 150px;
   padding-top: 40px;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
@@ -104,7 +104,31 @@ p {
   grid-area: content;
   justify-self: center;
   margin-top: 50px;
+  margin-right: 160px;
+}
+
+#content {
+  grid-area: content;
+  justify-self: center;
+  margin-top: 50px;
+  margin-left: 78px;
+  padding-top: 20px;
+  padding-bottom: 20px;
   margin-right: 150px;
+  border: solid;
+  border-width: 1px;
+}
+
+#content-reviews {
+  grid-area: content;
+  justify-self: center;
+  border: solid;
+  border-width: 1px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-top: 60px;
+  margin-left: 160px;
 }
 
 .grid-headings {
@@ -118,6 +142,11 @@ p {
 
 #start-about-text {
   text-align: center;
+}
+
+#start-subhead {
+  text-align: center;
+  font-size: 68px;
 }
 
 #guestbook-form {
@@ -167,8 +196,8 @@ p {
 /* Works page */
 
 #works-list {
-  margin-left: 300px;
-  margin-top: 40px;
+  margin-left: 290px;
+  margin-top: 20px;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
   font-size: larger;
@@ -273,7 +302,7 @@ p {
 }
 
 #review-error-messages {
-  margin-left: 180px;
+  margin-left: 350px;
   color: red;
 }
 
